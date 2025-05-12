@@ -22,7 +22,7 @@ body {
 }
 
 .slides img {
-    max-width: 70%; /* کاهش اندازه تصاویر برای افزایش فاصله */
+    max-width: 70%;
     height: auto;
     object-fit: contain;
     transition: transform 0.3s ease-in-out;
@@ -30,9 +30,11 @@ body {
 
 .controls {
     position: absolute;
-    bottom: 10%;
+    bottom: 2%;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
-    gap: 20px;
+    gap: 15px;
 }
 
 .controls button {
@@ -40,13 +42,13 @@ body {
     color: white;
     border: none;
     cursor: pointer;
-    padding: 15px;
-    font-size: 24px;
+    padding: 8px 12px;
+    font-size: 18px;
+    border-radius: 5px;
 }
 
 .fullscreen-toggle {
-    font-size: 22px;
-    padding: 10px;
+    font-size: 18px;
 }
 
 .prev {
