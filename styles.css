@@ -1,64 +1,38 @@
-body {
-    text-align: center;
-    background: #000; /* پس‌زمینه‌ی مشکی */
-    overflow: hidden;
-}
-
-.slider-container {
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    position: relative;
-    overflow: hidden;
-}
-
-.slides {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-    justify-content: center;
-}
-
-.slides img {
-    max-width: 70%;
-    height: auto;
-    object-fit: contain;
-    transition: transform 0.3s ease-in-out;
-}
-
 .controls {
     position: absolute;
-    bottom: 2%;
+    bottom: 5%;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    gap: 15px;
+    gap: 20px;
+    z-index: 10; /* اطمینان از دیده‌شدن دکمه‌ها */
 }
 
-.controls button {
-    background: rgba(255, 255, 255, 0.3);
+.controls button,
+.prev,
+.next {
+    background: rgba(255, 255, 255, 0.5);
     color: white;
     border: none;
     cursor: pointer;
-    padding: 8px 12px;
-    font-size: 18px;
-    border-radius: 5px;
+    padding: 15px;
+    font-size: 22px;
+    border-radius: 50%;
+    transition: 0.3s;
 }
 
-.fullscreen-toggle {
-    font-size: 18px;
+.controls button:hover,
+.prev:hover,
+.next:hover {
+    background: rgba(255, 255, 255, 0.8);
 }
 
 .prev {
     position: absolute;
-    left: 5%;
-    font-size: 18px;
+    left: 3%;
 }
 
 .next {
     position: absolute;
-    right: 5%;
-    font-size: 18px;
+    right: 3%;
 }
