@@ -1,100 +1,94 @@
 body {
   margin: 0;
   background: #000;
+  text-align: center;
   overflow: hidden;
 }
 
-/* کانتینر اسلایدر */
 .slider-container {
   width: 100vw;
   height: 100vh;
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  flex-direction: column;
 }
 
-/* تصاویر اسلاید */
 .slides {
   display: flex;
-  align-items: center;
   justify-content: center;
+  transition: transform 0.5s ease-in-out;
   height: 100%;
-  width: 100%;
-  position: relative;
 }
 
 .slides img {
-  max-width: 70%;
-  height: auto;
-  object-fit: contain;
   display: none;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
   transition: transform 0.3s ease-in-out;
-  transform-origin: center center;
-  position: relative;
-  z-index: 1;
 }
 
-/* استایل یکپارچه دکمه‌ها */
-.button {
-  background: rgba(0, 0, 0, 0.6);
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  padding: 10px 14px;
-  font-size: 20px;
-  border-radius: 6px;
-  transition: background 0.3s ease, transform 0.2s ease;
+.controls,
+.nav {
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-.button:hover {
-  background: rgba(0, 0, 0, 0.8);
-  /* حذف scale برای جلوگیری از جابجایی */
-  /* transform: scale(1.05); */
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.2); /* افکت جایگزین زیباتر */
+body.visible-controls .controls,
+body.visible-controls .nav {
+  opacity: 1;
 }
 
-/* دکمه‌های پایین صفحه */
 .controls {
-  position: fixed;
-  bottom: 2%;
+  position: absolute;
+  bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   gap: 15px;
   z-index: 10;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
 }
 
-body.visible-controls .controls {
-  opacity: 1;
-  pointer-events: auto;
+.button {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  font-size: 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
 }
 
-/* دکمه‌های قبلی و بعدی */
-.prev,
-.next {
-  position: fixed;
+.button:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.nav.prev,
+.nav.next {
+  position: absolute;
   top: 50%;
   transform: translateY(-50%);
   z-index: 10;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
 }
 
-.prev {
-  left: 5%;
-}
+.nav.prev { left: 15px; }
+.nav.next { right: 15px; }
 
-.next {
-  right: 5%;
-}
-
-body.visible-controls .prev,
-body.visible-controls .next {
+#fullscreen-btn.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
   opacity: 1;
-  pointer-events: auto;
+}
+
+body.initial-slide #fullscreen-btn:not(.center),
+body.initial-slide .zoom-in,
+body.initial-slide .zoom-out,
+body.initial-slide .nav {
+  display: none;
 }
