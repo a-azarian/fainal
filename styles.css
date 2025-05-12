@@ -1,7 +1,7 @@
 body {
     text-align: center;
     background: #000; /* پس‌زمینه‌ی مشکی */
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 .slider-container {
@@ -21,27 +21,40 @@ body {
 }
 
 .slides img {
-    max-width: 85%; /* نمایش تصاویر با ابعاد واقعی بدون زوم */
+    max-width: 85%;
     height: auto;
     object-fit: contain;
+    transition: transform 0.3s ease-in-out;
 }
 
 button {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
     background: rgba(255, 255, 255, 0.3);
     color: white;
     border: none;
     cursor: pointer;
-    padding: 15px;
-    font-size: 24px;
+    padding: 10px;
+    font-size: 20px;
 }
 
 .prev {
-    left: 5%;
+    left: 3%;
 }
 
 .next {
-    right: 5%;
+    right: 3%;
+}
+
+.zoom-in, .zoom-out {
+    bottom: 10%;
+    font-size: 24px;
+    padding: 10px;
+}
+
+.zoom-in {
+    right: 12%;
+}
+
+.zoom-out {
+    right: 8%;
 }
