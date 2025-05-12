@@ -18,13 +18,13 @@ function prevSlide() {
     showSlide(index);
 }
 
-// Enable fullscreen mode automatically when the page loads
-document.addEventListener("DOMContentLoaded", () => {
+// Enable fullscreen mode when the user interacts (clicks)
+document.addEventListener("click", () => {
     const elem = document.documentElement;
-    if (elem.requestFullscreen) {
+    if (!document.fullscreenElement) {
         elem.requestFullscreen().catch(err => console.error("Fullscreen failed:", err));
     }
-});
+}, { once: true }); // Runs only once on the first interaction
 
 // Exit fullscreen on Escape key press
 document.addEventListener("keydown", (event) => {
