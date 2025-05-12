@@ -1,81 +1,88 @@
 let index = 0;
-const images = document.querySelectorAll(".slides img");
-const fullscreenBtn = document.getElementById("fullscreen-btn");
+const slides = document.querySelectorAll(".slides img, .welcome-slide");
 let zoomed = false;
 let hideControlsTimer = null;
 
 function showSlide(i) {
-  images.forEach((img, idx) => {
-    img.style.display = idx === i ? "block" : "none";
-    img.style.transform = "scale(1)";
+  slides.forEach((slide, idx) => {
+    slide.style.display = idx === i ? "block" : "none";
+    if (slide.tagName === "IMG") {
+      slide.style.transform = "scale(1)";
+    }
   });
-  zoomed = false;
 
-  // حالت صفحه اول
+  zoomed = false;
   if (i === 0) {
-    document.body.classList.add("initial-slide");
-    fullscreenBtn.classList.add("center");
+    document.body.classList.remove("visible-controls");
   } else {
-    document.body.classList.remove("initial-slide");
-    fullscreenBtn.classList.remove("center");
+    document.body.classList.add("visible-controls");
   }
+  index = i;
 }
 
 function nextSlide() {
-  index = (index + 1) % images.length;
+  index = (index + 1) % slides.length;
   showSlide(index);
 }
 
 function prevSlide() {
-  index = (index - 1 + images.length) % images.length;
+  index = (index - 1 + slides.length) % slides.length;
   showSlide(index);
 }
 
 function getCurrentImage() {
-  return images[index];
+  return slides[index].tagName === "IMG" ? slides[index] : null;
 }
 
 function zoomIn() {
-  if (!zoomed) {
-    getCurrentImage().style.transform = "scale(1.5)";
+  const img = getCurrentImage();
+  if (img && !zoomed) {
+    img.style.transform = "scale(1.5)";
     zoomed = true;
   }
 }
 
 function zoomOut() {
-  if (zoomed) {
-    getCurrentImage().style.transform = "scale(1)";
+  const img = getCurrentImage();
+  if (img && zoomed) {
+    img.style.transform = "scale(1)";
     zoomed = false;
   }
 }
 
-// ترکیب fullscreen و رفتن به اسلاید دوم
-function handleFullscreen() {
+function toggleFullscreen() {
   const elem = document.documentElement;
   if (!document.fullscreenElement) {
-    elem.requestFullscreen().then(() => {
-      index = 1;
-      showSlide(index);
-    }).catch(err => console.error("Fullscreen failed:", err));
+    elem.requestFullscreen().catch(err =>
+      console.error("Fullscreen failed:", err)
+    );
   } else {
     document.exitFullscreen();
   }
 }
 
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && document.fullscreenElement) {
+// ورود از اسلاید صفر
+function startPresentation() {
+  toggleFullscreen();
+  showSlide(1); // برو به اسلاید اول واقعی
+}
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && document.fullscreenElement) {
     document.exitFullscreen();
   }
 });
 
-// نمایش کنترل‌ها با حرکت موس
-document.addEventListener("mousemove", () => {
+function showControlsTemporarily() {
+  if (index === 0) return;
   document.body.classList.add("visible-controls");
-  clearTimeout(hideControlsTimer);
+  if (hideControlsTimer) clearTimeout(hideControlsTimer);
   hideControlsTimer = setTimeout(() => {
     document.body.classList.remove("visible-controls");
   }, 3000);
-});
+}
 
-// شروع با اسلاید اول
-showSlide(index);
+document.addEventListener("mousemove", showControlsTemporarily);
+
+// شروع با اسلاید صفر
+showSlide(0);
