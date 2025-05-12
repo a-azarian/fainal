@@ -5,7 +5,7 @@
     transform: translateX(-50%);
     display: flex;
     gap: 20px;
-    z-index: 10; /* اطمینان از دیده‌شدن دکمه‌ها */
+    z-index: 10; /* حفظ نمایش دکمه‌ها بالای همه عناصر */
 }
 
 .controls button,
@@ -19,6 +19,11 @@
     font-size: 22px;
     border-radius: 50%;
     transition: 0.3s;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .controls button:hover,
