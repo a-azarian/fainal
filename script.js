@@ -22,7 +22,7 @@ function prevSlide() {
 function toggleFullscreen() {
     const elem = document.documentElement;
     if (!document.fullscreenElement) {
-        elem.requestFullscreen();
+        elem.requestFullscreen().catch(err => console.error("Fullscreen failed:", err));
     } else {
         document.exitFullscreen();
     }
@@ -37,14 +37,14 @@ document.addEventListener("keydown", (event) => {
     }
 });
 
-// Zoom functionality (limited to 1x)
+// Zoom functionality (limited to 2x)
 function zoomIn() {
-    zoomLevel = Math.min(zoomLevel + 0.2, 1);
+    zoomLevel = Math.min(zoomLevel + 1, 2);
     slideImage.style.transform = `scale(${zoomLevel})`;
 }
 
 function zoomOut() {
-    zoomLevel = Math.max(zoomLevel - 0.2, 1);
+    zoomLevel = Math.max(zoomLevel - 1, 1);
     slideImage.style.transform = `scale(${zoomLevel})`;
 }
 
