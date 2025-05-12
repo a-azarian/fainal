@@ -1,8 +1,8 @@
 button {
     position: absolute;
-    background: rgba(255, 255, 255, 0.3); /* هایلایت خاکستری */
-    color: white; /* رنگ تمام دکمه‌ها سفید */
-    border: 2px solid rgba(255, 255, 255, 0.5); /* لبه خاکستری کم‌رنگ */
+    background: rgba(100, 100, 100, 0.6); /* بکگراند مطابق تصویر (خاکستری نیمه شفاف) */
+    color: white; /* رنگ متن کلیدها سفید */
+    border: 2px solid rgba(255, 255, 255, 0.8); /* لبه سفید مشخص */
     cursor: pointer;
     padding: 10px 15px;
     font-size: 20px;
@@ -28,9 +28,9 @@ button {
 }
 
 .controls button {
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(100, 100, 100, 0.6); /* هماهنگ با دکمه‌های دیگر */
     color: white;
-    border: 2px solid rgba(255, 255, 255, 0.5);
+    border: 2px solid rgba(255, 255, 255, 0.8);
     cursor: pointer;
     padding: 8px 12px;
     font-size: 18px;
