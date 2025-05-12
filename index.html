@@ -6,7 +6,7 @@
     <title>My Portfolio</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body onload="openFullscreen()">
+<body>
     <div class="slider-container">
         <div class="slides">
             <img id="slide-image" src="slide1.jpg" alt="Project 1">
@@ -16,6 +16,7 @@
         <div class="controls">
             <button class="zoom-in" onclick="zoomIn()">+</button>
             <button class="zoom-out" onclick="zoomOut()">−</button>
+            <button class="fullscreen-toggle" onclick="toggleFullscreen()">⛶</button>
         </div>
         <button class="prev" onclick="prevSlide()">❮</button>
         <button class="next" onclick="nextSlide()">❯</button>
