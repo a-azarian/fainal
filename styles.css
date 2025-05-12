@@ -1,43 +1,77 @@
-.controls {
-    position: absolute;
-    bottom: 5%;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 20px;
-    z-index: 10; /* حفظ نمایش دکمه‌ها بالای همه عناصر */
+body {
+    text-align: center;
+    background: #000;
+    overflow: hidden;
+    margin: 0;
 }
 
-.controls button,
-.prev,
-.next {
-    background: rgba(255, 255, 255, 0.5);
-    color: white;
-    border: none;
-    cursor: pointer;
-    padding: 15px;
-    font-size: 22px;
-    border-radius: 50%;
-    transition: 0.3s;
-    width: 50px;
-    height: 50px;
+.slider-container {
+    width: 100vw;
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
 }
 
-.controls button:hover,
-.prev:hover,
-.next:hover {
-    background: rgba(255, 255, 255, 0.8);
+.slides {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.slides img {
+    max-width: 70%;
+    height: auto;
+    object-fit: contain;
+    display: none;
+    transition: transform 0.3s ease-in-out;
+}
+
+.controls {
+    position: absolute;
+    bottom: 2%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 15px;
+}
+
+.controls button {
+    background: rgba(255, 255, 255, 0.3);
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 8px 12px;
+    font-size: 18px;
+    border-radius: 5px;
+}
+
+.fullscreen-toggle {
+    font-size: 18px;
+}
+
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 24px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    color: white;
+    border-radius: 5px;
 }
 
 .prev {
-    position: absolute;
-    left: 3%;
+    left: 5%;
 }
 
 .next {
-    position: absolute;
-    right: 3%;
+    right: 5%;
 }
