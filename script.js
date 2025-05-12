@@ -18,15 +18,13 @@ function prevSlide() {
     showSlide(index);
 }
 
-// Toggle fullscreen mode
-function toggleFullscreen() {
+// Enable fullscreen mode automatically when the page loads
+document.addEventListener("DOMContentLoaded", () => {
     const elem = document.documentElement;
-    if (!document.fullscreenElement) {
+    if (elem.requestFullscreen) {
         elem.requestFullscreen().catch(err => console.error("Fullscreen failed:", err));
-    } else {
-        document.exitFullscreen();
     }
-}
+});
 
 // Exit fullscreen on Escape key press
 document.addEventListener("keydown", (event) => {
