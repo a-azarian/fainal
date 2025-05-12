@@ -1,3 +1,4 @@
+// Automatic horizontal scrolling
 const slider = document.querySelector(".slider-container");
 let scrollAmount = 0;
 const step = 500; // Adjust scrolling speed
@@ -17,3 +18,8 @@ function scrollRight() {
         behavior: "smooth"
     });
 }
+
+// Optional: Auto-scroll functionality
+setInterval(() => {
+    scrollRight();
+}, 5000); // Scrolls every 5 seconds
