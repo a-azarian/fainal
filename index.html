@@ -7,26 +7,23 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="start-screen">
-    <button class="start-button" onclick="startPresentation()">Click here to start</button>
-  </div>
-
   <div class="slider-container">
     <div class="slides">
-      <img src="slide0.jpg" alt="Start Slide" />
       <img src="slide1.jpg" alt="Project 1" />
       <img src="slide2.jpg" alt="Project 2" />
       <img src="slide3.jpg" alt="Project 3" />
     </div>
 
+    <!-- کنترل‌های زوم و تمام صفحه -->
     <div class="controls">
-      <button class="zoom-in" onclick="zoomIn()">+</button>
-      <button class="zoom-out" onclick="zoomOut()">−</button>
-      <button class="fullscreen-toggle" onclick="toggleFullscreen()">⛶</button>
+      <button class="button zoom-in" onclick="zoomIn()">+</button>
+      <button class="button zoom-out" onclick="zoomOut()">−</button>
+      <button class="button fullscreen-toggle" onclick="toggleFullscreen()">⛶</button>
     </div>
 
-    <button class="prev" onclick="prevSlide()">❮</button>
-    <button class="next" onclick="nextSlide()">❯</button>
+    <!-- دکمه‌های جابه‌جایی -->
+    <button class="button prev" onclick="prevSlide()">❮</button>
+    <button class="button next" onclick="nextSlide()">❯</button>
   </div>
 
   <script src="script.js"></script>
