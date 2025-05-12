@@ -9,20 +9,26 @@
 <body>
   <div class="slider-container">
     <div class="slides">
-      <img src="slide1.jpg" alt="Project 1">
-      <img src="slide2.jpg" alt="Project 2">
-      <img src="slide3.jpg" alt="Project 3">
+      <!-- اسلاید صفر -->
+      <div class="welcome-slide">
+        <button class="fullscreen-button" onclick="startPresentation()">Enter Fullscreen</button>
+      </div>
+
+      <!-- سایر اسلایدها -->
+      <img src="slide1.jpg" alt="Project 1" />
+      <img src="slide2.jpg" alt="Project 2" />
+      <img src="slide3.jpg" alt="Project 3" />
     </div>
 
-    <!-- دکمه‌های کنترلی -->
+    <!-- کنترل‌ها -->
     <div class="controls">
-      <button class="button zoom-in" onclick="zoomIn()">+</button>
-      <button class="button zoom-out" onclick="zoomOut()">−</button>
-      <button class="button fullscreen-toggle" id="fullscreen-btn" onclick="handleFullscreen()">⛶</button>
+      <button class="zoom-in button" onclick="zoomIn()">+</button>
+      <button class="zoom-out button" onclick="zoomOut()">−</button>
+      <button class="fullscreen-toggle button" onclick="toggleFullscreen()">⛶</button>
     </div>
 
-    <button class="button nav prev" onclick="prevSlide()">❮</button>
-    <button class="button nav next" onclick="nextSlide()">❯</button>
+    <button class="prev button" onclick="prevSlide()">❮</button>
+    <button class="next button" onclick="nextSlide()">❯</button>
   </div>
 
   <script src="script.js"></script>
