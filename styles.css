@@ -1,49 +1,64 @@
+body {
+    text-align: center;
+    background: #000; /* پس‌زمینه‌ی مشکی */
+    overflow: hidden;
+}
+
+.slider-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.slides {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    justify-content: center;
+}
+
+.slides img {
+    max-width: 70%;
+    height: auto;
+    object-fit: contain;
+    transition: transform 0.3s ease-in-out;
+}
+
 .controls {
     position: absolute;
-    bottom: 5%;
+    bottom: 2%;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     gap: 15px;
-    z-index: 10; /* دکمه‌ها همیشه بالای اسلاید باقی می‌مانند */
 }
 
 .controls button {
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.3);
     color: white;
     border: none;
     cursor: pointer;
-    padding: 10px 15px;
-    font-size: 20px;
+    padding: 8px 12px;
+    font-size: 18px;
     border-radius: 5px;
-    transition: 0.3s;
 }
 
-.controls button:hover {
-    background: rgba(255, 255, 255, 0.8);
-}
-
-.prev, .next {
-    position: absolute;
-    font-size: 24px;
-    color: white;
-    background: rgba(255, 255, 255, 0.5);
-    border: none;
-    padding: 15px;
-    cursor: pointer;
-    border-radius: 50%;
-    z-index: 10;
-    transition: 0.3s;
-}
-
-.prev:hover, .next:hover {
-    background: rgba(255, 255, 255, 0.8);
+.fullscreen-toggle {
+    font-size: 18px;
 }
 
 .prev {
-    left: 3%;
+    position: absolute;
+    left: 5%;
+    font-size: 18px;
 }
 
 .next {
-    right: 3%;
+    position: absolute;
+    right: 5%;
+    font-size: 18px;
 }
