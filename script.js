@@ -1,6 +1,7 @@
 let index = 0;
 const images = document.querySelectorAll(".slides img");
 const slideImage = document.getElementById("slide-image");
+let zoomLevel = 1;
 
 function showSlide(i) {
     images.forEach(img => img.style.display = "none");
@@ -34,14 +35,16 @@ document.addEventListener("keydown", (event) => {
     }
 });
 
-// Zoom functionality (fixed at 1x)
-document.querySelector(".zoom-in").addEventListener("click", () => {
-    slideImage.style.transform = "scale(1)";
-});
+// Zoom functionality (limited to 1x)
+function zoomIn() {
+    zoomLevel = Math.min(zoomLevel + 0.2, 1);
+    slideImage.style.transform = `scale(${zoomLevel})`;
+}
 
-document.querySelector(".zoom-out").addEventListener("click", () => {
-    slideImage.style.transform = "scale(1)";
-});
+function zoomOut() {
+    zoomLevel = Math.max(zoomLevel - 0.2, 1);
+    slideImage.style.transform = `scale(${zoomLevel})`;
+}
 
 // Display the first image on page load
 showSlide(index);
