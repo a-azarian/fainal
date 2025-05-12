@@ -1,6 +1,5 @@
 let index = 0;
 const images = document.querySelectorAll(".slides img");
-const slideImage = document.getElementById("slide-image");
 let zoomLevel = 1;
 
 function showSlide(i) {
@@ -37,16 +36,16 @@ document.addEventListener("keydown", (event) => {
     }
 });
 
-// Zoom functionality (limited to 2x)
+// ✅ **اصلاح زوم برای تمامی اسلایدها**
 function zoomIn() {
-    zoomLevel = Math.min(zoomLevel + 1, 2);
-    slideImage.style.transform = `scale(${zoomLevel})`;
+    zoomLevel = Math.min(zoomLevel + 0.2, 2);
+    images[index].style.transform = `scale(${zoomLevel})`;
 }
 
 function zoomOut() {
-    zoomLevel = Math.max(zoomLevel - 1, 1);
-    slideImage.style.transform = `scale(${zoomLevel})`;
+    zoomLevel = Math.max(zoomLevel - 0.2, 1);
+    images[index].style.transform = `scale(${zoomLevel})`;
 }
 
-// Display the first image on page load
+// نمایش اولین اسلاید در بارگذاری صفحه
 showSlide(index);
