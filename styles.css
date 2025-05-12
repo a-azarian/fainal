@@ -10,6 +10,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     position: relative;
     overflow: hidden;
 }
@@ -27,8 +28,14 @@ body {
     transition: transform 0.3s ease-in-out;
 }
 
-button {
+.controls {
     position: absolute;
+    bottom: 5%;
+    display: flex;
+    gap: 10px;
+}
+
+.controls button {
     background: rgba(255, 255, 255, 0.3);
     color: white;
     border: none;
@@ -38,23 +45,13 @@ button {
 }
 
 .prev {
+    position: absolute;
     left: 3%;
+    font-size: 18px;
 }
 
 .next {
+    position: absolute;
     right: 3%;
-}
-
-.zoom-in, .zoom-out {
-    bottom: 10%;
-    font-size: 24px;
-    padding: 10px;
-}
-
-.zoom-in {
-    right: 12%;
-}
-
-.zoom-out {
-    right: 8%;
+    font-size: 18px;
 }
