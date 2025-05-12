@@ -56,7 +56,11 @@ body {
 .controls button:hover,
 .prev:hover,
 .next:hover {
-  background: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.6); /* تیره‌تر شد */
+}
+
+.start-button:hover {
+  background: rgba(255, 255, 255, 0.6); /* برای دکمه شروع هم یکدست شد */
 }
 
 .prev {
