@@ -1,25 +1,27 @@
 body {
-  text-align: center;
+  margin: 0;
   background: #000;
   overflow: hidden;
-  margin: 0;
 }
 
+/* کانتینر اسلایدر */
 .slider-container {
   width: 100vw;
   height: 100vh;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden;
 }
 
+/* تصاویر اسلاید */
 .slides {
   display: flex;
-  transition: transform 0.5s ease-in-out;
+  align-items: center;
   justify-content: center;
+  height: 100%;
+  width: 100%;
+  position: relative;
 }
 
 .slides img {
@@ -28,97 +30,71 @@ body {
   object-fit: contain;
   display: none;
   transition: transform 0.3s ease-in-out;
+  transform-origin: center center;
+  position: relative;
+  z-index: 1;
 }
 
+/* استایل یکپارچه دکمه‌ها */
+.button {
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  padding: 10px 14px;
+  font-size: 20px;
+  border-radius: 6px;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.button:hover {
+  background: rgba(0, 0, 0, 0.8);
+  /* حذف scale برای جلوگیری از جابجایی */
+  /* transform: scale(1.05); */
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.2); /* افکت جایگزین زیباتر */
+}
+
+/* دکمه‌های پایین صفحه */
 .controls {
-  position: absolute;
+  position: fixed;
   bottom: 2%;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   gap: 15px;
-  z-index: 2;
+  z-index: 10;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
 }
 
-.controls button,
-.prev,
-.next,
-.start-button {
-  background: rgba(0, 0, 0, 0.6); /* پس‌زمینه تیره‌تر */
-  color: white;
-  border: none;
-  cursor: pointer;
-  padding: 12px 18px;
-  font-size: 20px;
-  border-radius: 8px;
-  transition: background 0.3s ease, box-shadow 0.3s ease;
-}
-
-.controls button:hover,
-.prev:hover,
-.next:hover,
-.start-button:hover {
-  background: rgba(0, 0, 0, 0.8); /* پس‌زمینه تیره‌تر */
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.2); /* افکت سایه برای زیبایی */
-  transform: scale(1.05); /* جلوه بزرگ شدن دکمه */
-}
-
-.start-button:hover {
-  background: rgba(0, 0, 0, 0.8); /* تیره‌تر شدن پس‌زمینه */
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.2); /* سایه با شدت بیشتر */
+body.visible-controls .controls {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 /* دکمه‌های قبلی و بعدی */
 .prev,
 .next {
-  font-size: 28px; /* کمی بزرگتر برای دکمه‌های ناوبری */
-  background: rgba(0, 0, 0, 0.6); /* پس‌زمینه تیره */
-}
-
-.prev:hover,
-.next:hover {
-  background: rgba(0, 0, 0, 0.8); /* تیره‌تر شدن پس‌زمینه */
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.2); /* اضافه شدن سایه */
-}
-
-/* حالت‌های کلی دکمه‌های کنترلی */
-body:not(.visible-controls) .controls,
-body:not(.visible-controls) .prev,
-body:not(.visible-controls) .next {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
   opacity: 0;
-  transition: opacity 0.5s ease;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
 }
 
-body.visible-controls .controls,
+.prev {
+  left: 5%;
+}
+
+.next {
+  right: 5%;
+}
+
 body.visible-controls .prev,
 body.visible-controls .next {
   opacity: 1;
-}
-
-.start-screen {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: black;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 10;
-}
-
-.start-button {
-  background: rgba(255, 255, 255, 0.15);
-  color: white;
-  padding: 16px 32px;
-  border: none;
-  border-radius: 10px;
-  font-size: 22px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.start-button:hover {
-  background: rgba(255, 255, 255, 0.6);
+  pointer-events: auto;
 }
