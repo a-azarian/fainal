@@ -1,25 +1,20 @@
-// Automatic horizontal scrolling
-const slider = document.querySelector(".slider-container");
-let scrollAmount = 0;
-const step = 500; // Adjust scrolling speed
+let index = 0;
+const images = document.querySelectorAll(".slides img");
 
-function scrollLeft() {
-    scrollAmount -= step;
-    slider.scrollTo({
-        left: scrollAmount,
-        behavior: "smooth"
-    });
+function showSlide(i) {
+    images.forEach(img => img.style.display = "none");
+    images[i].style.display = "block";
 }
 
-function scrollRight() {
-    scrollAmount += step;
-    slider.scrollTo({
-        left: scrollAmount,
-        behavior: "smooth"
-    });
+function nextSlide() {
+    index = (index + 1) % images.length;
+    showSlide(index);
 }
 
-// Optional: Auto-scroll functionality
-setInterval(() => {
-    scrollRight();
-}, 5000); // Scrolls every 5 seconds
+function prevSlide() {
+    index = (index - 1 + images.length) % images.length;
+    showSlide(index);
+}
+
+// نمایش اولین تصویر هنگام بارگذاری صفحه
+showSlide(index);
