@@ -5,17 +5,39 @@ body {
 }
 
 .slider-container {
-    width: 100%;
-    overflow-x: auto;
-    white-space: nowrap;
+    width: 90%;
+    margin: auto;
+    position: relative;
+    overflow: hidden;
 }
 
 .slides {
     display: flex;
-    flex-wrap: nowrap;
+    transition: transform 0.5s ease-in-out;
 }
 
 .slides img {
     height: auto;
     width: 100%;
+    padding: 20px; /* فاصله از لبه‌های صفحه */
+}
+
+button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 24px;
+}
+
+.prev {
+    left: 10px;
+}
+
+.next {
+    right: 10px;
 }
