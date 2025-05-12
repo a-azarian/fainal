@@ -1,12 +1,15 @@
 body {
     text-align: center;
-    background: #f3f3f3;
+    background: #000; /* پس‌زمینه‌ی مشکی */
     overflow-x: hidden;
 }
 
 .slider-container {
-    width: 90%;
-    margin: auto;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: relative;
     overflow: hidden;
 }
@@ -14,30 +17,31 @@ body {
 .slides {
     display: flex;
     transition: transform 0.5s ease-in-out;
+    justify-content: center;
 }
 
 .slides img {
+    max-width: 85%; /* نمایش تصاویر با ابعاد واقعی بدون زوم */
     height: auto;
-    width: 100%;
-    padding: 20px; /* فاصله از لبه‌های صفحه */
+    object-fit: contain;
 }
 
 button {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(255, 255, 255, 0.3);
     color: white;
     border: none;
     cursor: pointer;
-    padding: 10px;
+    padding: 15px;
     font-size: 24px;
 }
 
 .prev {
-    left: 10px;
+    left: 5%;
 }
 
 .next {
-    right: 10px;
+    right: 5%;
 }
