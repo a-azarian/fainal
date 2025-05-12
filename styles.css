@@ -22,7 +22,7 @@ body {
 }
 
 .slides img {
-    max-width: 85%;
+    max-width: 70%; /* کاهش اندازه تصاویر برای افزایش فاصله */
     height: auto;
     object-fit: contain;
     transition: transform 0.3s ease-in-out;
@@ -46,12 +46,12 @@ body {
 
 .prev {
     position: absolute;
-    left: 3%;
+    left: 5%;
     font-size: 18px;
 }
 
 .next {
     position: absolute;
-    right: 3%;
+    right: 5%;
     font-size: 18px;
 }
