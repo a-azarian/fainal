@@ -2,9 +2,13 @@ let index = 0;
 const images = document.querySelectorAll(".slides img");
 let zoomLevel = 1;
 
+// Show only the selected slide
 function showSlide(i) {
-    images.forEach(img => img.style.display = "none");
-    images[i].style.display = "block";
+    images.forEach((img, idx) => {
+        img.style.display = (idx === i) ? "block" : "none";
+        img.style.transform = "scale(1)";
+    });
+    zoomLevel = 1;
 }
 
 function nextSlide() {
@@ -17,7 +21,7 @@ function prevSlide() {
     showSlide(index);
 }
 
-// Toggle fullscreen mode
+// Fullscreen toggle
 function toggleFullscreen() {
     const elem = document.documentElement;
     if (!document.fullscreenElement) {
@@ -27,25 +31,28 @@ function toggleFullscreen() {
     }
 }
 
-// Exit fullscreen on Escape key press
+// Escape key exits fullscreen
 document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") {
-        if (document.fullscreenElement) {
-            document.exitFullscreen();
-        }
+    if (event.key === "Escape" && document.fullscreenElement) {
+        document.exitFullscreen();
     }
 });
 
-// ✅ **اصلاح زوم برای تمامی اسلایدها**
+// Get currently visible image
+function getCurrentImage() {
+    return images[index];
+}
+
+// Zoom functions
 function zoomIn() {
     zoomLevel = Math.min(zoomLevel + 0.2, 2);
-    images[index].style.transform = `scale(${zoomLevel})`;
+    getCurrentImage().style.transform = `scale(${zoomLevel})`;
 }
 
 function zoomOut() {
     zoomLevel = Math.max(zoomLevel - 0.2, 1);
-    images[index].style.transform = `scale(${zoomLevel})`;
+    getCurrentImage().style.transform = `scale(${zoomLevel})`;
 }
 
-// نمایش اولین اسلاید در بارگذاری صفحه
+// Initialize
 showSlide(index);
