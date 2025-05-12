@@ -1,38 +1,64 @@
-button {
-    position: absolute;
-    background: rgba(100, 100, 100, 0.6); /* بکگراند مطابق تصویر (خاکستری نیمه شفاف) */
-    color: white; /* رنگ متن کلیدها سفید */
-    border: 2px solid rgba(255, 255, 255, 0.8); /* لبه سفید مشخص */
-    cursor: pointer;
-    padding: 10px 15px;
-    font-size: 20px;
-    border-radius: 5px;
+body {
+    text-align: center;
+    background: #000; /* پس‌زمینه‌ی مشکی */
+    overflow: hidden;
 }
 
-.prev {
-    left: 5%;
+.slider-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
 }
 
-.next {
-    right: 5%;
+.slides {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    justify-content: center;
 }
 
-/* تنظیمات دکمه‌های پایین */
+.slides img {
+    max-width: 70%;
+    height: auto;
+    object-fit: contain;
+    transition: transform 0.3s ease-in-out;
+}
+
 .controls {
     position: absolute;
     bottom: 2%;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    gap: 20px;
+    gap: 15px;
 }
 
 .controls button {
-    background: rgba(100, 100, 100, 0.6); /* هماهنگ با دکمه‌های دیگر */
+    background: rgba(255, 255, 255, 0.3);
     color: white;
-    border: 2px solid rgba(255, 255, 255, 0.8);
+    border: none;
     cursor: pointer;
     padding: 8px 12px;
     font-size: 18px;
     border-radius: 5px;
+}
+
+.fullscreen-toggle {
+    font-size: 18px;
+}
+
+.prev {
+    position: absolute;
+    left: 5%;
+    font-size: 18px;
+}
+
+.next {
+    position: absolute;
+    right: 5%;
+    font-size: 18px;
 }
