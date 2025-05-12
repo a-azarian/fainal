@@ -44,6 +44,11 @@ body {
     font-size: 24px;
 }
 
+.fullscreen-toggle {
+    font-size: 22px;
+    padding: 10px;
+}
+
 .prev {
     position: absolute;
     left: 5%;
