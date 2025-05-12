@@ -1,24 +1,19 @@
-let currentIndex = 0;
+const slider = document.querySelector(".slider-container");
+let scrollAmount = 0;
+const step = 500; // Adjust scrolling speed
 
-function showSlide(index) {
-    const slides = document.querySelector('.slides');
-    const totalSlides = slides.children.length;
-    if (index >= totalSlides) currentIndex = 0;
-    else if (index < 0) currentIndex = totalSlides - 1;
-    else currentIndex = index;
-
-    const offset = -currentIndex * 100;
-    slides.style.transform = `translateX(${offset}%)`;
+function scrollLeft() {
+    scrollAmount -= step;
+    slider.scrollTo({
+        left: scrollAmount,
+        behavior: "smooth"
+    });
 }
 
-function nextSlide() {
-    showSlide(currentIndex + 1);
+function scrollRight() {
+    scrollAmount += step;
+    slider.scrollTo({
+        left: scrollAmount,
+        behavior: "smooth"
+    });
 }
-
-function prevSlide() {
-    showSlide(currentIndex - 1);
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    showSlide(currentIndex);
-});
