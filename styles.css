@@ -1,11 +1,11 @@
 button {
     position: absolute;
     background: rgba(255, 255, 255, 0.3); /* هایلایت خاکستری */
-    color: white; /* رنگ فلش‌ها سفید */
+    color: white; /* رنگ تمام دکمه‌ها سفید */
     border: 2px solid rgba(255, 255, 255, 0.5); /* لبه خاکستری کم‌رنگ */
     cursor: pointer;
-    padding: 8px 12px;
-    font-size: 18px;
+    padding: 10px 15px;
+    font-size: 20px;
     border-radius: 5px;
 }
 
@@ -17,14 +17,14 @@ button {
     right: 5%;
 }
 
-/* تغییر موقعیت دکمه‌های پایین */
+/* تنظیمات دکمه‌های پایین */
 .controls {
     position: absolute;
     bottom: 2%;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    gap: 15px;
+    gap: 20px;
 }
 
 .controls button {
