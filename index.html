@@ -9,21 +9,20 @@
 <body>
   <div class="slider-container">
     <div class="slides">
-      <img src="slide1.jpg" alt="Project 1" />
-      <img src="slide2.jpg" alt="Project 2" />
-      <img src="slide3.jpg" alt="Project 3" />
+      <img src="slide1.jpg" alt="Project 1">
+      <img src="slide2.jpg" alt="Project 2">
+      <img src="slide3.jpg" alt="Project 3">
     </div>
 
-    <!-- کنترل‌های زوم و تمام صفحه -->
+    <!-- دکمه‌های کنترلی -->
     <div class="controls">
       <button class="button zoom-in" onclick="zoomIn()">+</button>
       <button class="button zoom-out" onclick="zoomOut()">−</button>
-      <button class="button fullscreen-toggle" onclick="toggleFullscreen()">⛶</button>
+      <button class="button fullscreen-toggle" id="fullscreen-btn" onclick="handleFullscreen()">⛶</button>
     </div>
 
-    <!-- دکمه‌های جابه‌جایی -->
-    <button class="button prev" onclick="prevSlide()">❮</button>
-    <button class="button next" onclick="nextSlide()">❯</button>
+    <button class="button nav prev" onclick="prevSlide()">❮</button>
+    <button class="button nav next" onclick="nextSlide()">❯</button>
   </div>
 
   <script src="script.js"></script>
