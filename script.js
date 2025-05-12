@@ -18,11 +18,13 @@ function prevSlide() {
     showSlide(index);
 }
 
-// Enable fullscreen mode automatically
-function openFullscreen() {
+// Toggle fullscreen mode
+function toggleFullscreen() {
     const elem = document.documentElement;
-    if (elem.requestFullscreen) {
+    if (!document.fullscreenElement) {
         elem.requestFullscreen();
+    } else {
+        document.exitFullscreen();
     }
 }
 
