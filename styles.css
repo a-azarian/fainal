@@ -42,41 +42,57 @@ body {
 
 .controls button,
 .prev,
-.next {
-  background: rgba(255, 255, 255, 0.15);
+.next,
+.start-button {
+  background: rgba(0, 0, 0, 0.6); /* پس‌زمینه تیره‌تر */
   color: white;
   border: none;
   cursor: pointer;
-  padding: 10px 14px;
+  padding: 12px 18px;
   font-size: 20px;
   border-radius: 8px;
-  transition: background 0.3s ease, transform 0.1s ease;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
 .controls button:hover,
 .prev:hover,
-.next:hover {
-  background: rgba(255, 255, 255, 0.6); /* تیره‌تر شد */
+.next:hover,
+.start-button:hover {
+  background: rgba(0, 0, 0, 0.8); /* پس‌زمینه تیره‌تر */
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.2); /* افکت سایه برای زیبایی */
+  transform: scale(1.05); /* جلوه بزرگ شدن دکمه */
 }
 
 .start-button:hover {
-  background: rgba(255, 255, 255, 0.6); /* برای دکمه شروع هم یکدست شد */
+  background: rgba(0, 0, 0, 0.8); /* تیره‌تر شدن پس‌زمینه */
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.2); /* سایه با شدت بیشتر */
 }
 
-.prev {
-  position: absolute;
-  left: 3%;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 2;
-}
-
+/* دکمه‌های قبلی و بعدی */
+.prev,
 .next {
-  position: absolute;
-  right: 3%;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 2;
+  font-size: 28px; /* کمی بزرگتر برای دکمه‌های ناوبری */
+  background: rgba(0, 0, 0, 0.6); /* پس‌زمینه تیره */
+}
+
+.prev:hover,
+.next:hover {
+  background: rgba(0, 0, 0, 0.8); /* تیره‌تر شدن پس‌زمینه */
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.2); /* اضافه شدن سایه */
+}
+
+/* حالت‌های کلی دکمه‌های کنترلی */
+body:not(.visible-controls) .controls,
+body:not(.visible-controls) .prev,
+body:not(.visible-controls) .next {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+body.visible-controls .controls,
+body.visible-controls .prev,
+body.visible-controls .next {
+  opacity: 1;
 }
 
 .start-screen {
@@ -104,18 +120,5 @@ body {
 }
 
 .start-button:hover {
-  background: rgba(255, 255, 255, 0.35);
-}
-
-body:not(.visible-controls) .controls,
-body:not(.visible-controls) .prev,
-body:not(.visible-controls) .next {
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-
-body.visible-controls .controls,
-body.visible-controls .prev,
-body.visible-controls .next {
-  opacity: 1;
+  background: rgba(255, 255, 255, 0.6);
 }
