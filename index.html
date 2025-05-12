@@ -8,14 +8,16 @@
 </head>
 <body onload="openFullscreen()">
     <div class="slider-container">
-        <button class="zoom-in">+</button>
-        <button class="zoom-out">−</button>
-        <button class="prev" onclick="prevSlide()">❮</button>
         <div class="slides">
             <img id="slide-image" src="slide1.jpg" alt="Project 1">
             <img src="slide2.jpg" alt="Project 2">
             <img src="slide3.jpg" alt="Project 3">
         </div>
+        <div class="controls">
+            <button class="zoom-in">+</button>
+            <button class="zoom-out">−</button>
+        </div>
+        <button class="prev" onclick="prevSlide()">❮</button>
         <button class="next" onclick="nextSlide()">❯</button>
     </div>
     <script src="script.js"></script>
