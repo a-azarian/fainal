@@ -1,6 +1,5 @@
 body {
   margin: 0;
-  text-align: center;
   background: #000;
   overflow: hidden;
 }
@@ -15,14 +14,21 @@ body {
   overflow: hidden;
 }
 
-.slides {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.slide-wrapper {
   width: 100%;
   height: 100%;
   position: relative;
+  overflow: hidden;
   z-index: 1;
+}
+
+.slides {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  position: relative;
 }
 
 .slides img {
@@ -30,19 +36,25 @@ body {
   height: auto;
   object-fit: contain;
   display: none;
-  position: relative;
   transition: transform 0.3s ease-in-out;
+  transform-origin: center center;
+  position: relative;
   z-index: 1;
 }
 
-.controls {
+.controls,
+.prev,
+.next {
+  z-index: 10;
   position: absolute;
+}
+
+.controls {
   bottom: 2%;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   gap: 15px;
-  z-index: 3;
 }
 
 .controls button {
@@ -61,7 +73,6 @@ body {
 
 .prev,
 .next {
-  position: absolute;
   top: 50%;
   transform: translateY(-50%);
   font-size: 24px;
@@ -71,7 +82,6 @@ body {
   cursor: pointer;
   color: white;
   border-radius: 5px;
-  z-index: 3;
 }
 
 .prev {
