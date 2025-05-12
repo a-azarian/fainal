@@ -1,33 +1,23 @@
-body {
-    text-align: center;
-    background: #000; /* پس‌زمینه‌ی مشکی */
-    overflow: hidden;
+button {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.3); /* هایلایت خاکستری */
+    color: white; /* رنگ فلش‌ها سفید */
+    border: 2px solid rgba(255, 255, 255, 0.5); /* لبه خاکستری کم‌رنگ */
+    cursor: pointer;
+    padding: 8px 12px;
+    font-size: 18px;
+    border-radius: 5px;
 }
 
-.slider-container {
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    position: relative;
-    overflow: hidden;
+.prev {
+    left: 5%;
 }
 
-.slides {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-    justify-content: center;
+.next {
+    right: 5%;
 }
 
-.slides img {
-    max-width: 70%;
-    height: auto;
-    object-fit: contain;
-    transition: transform 0.3s ease-in-out;
-}
-
+/* تغییر موقعیت دکمه‌های پایین */
 .controls {
     position: absolute;
     bottom: 2%;
@@ -40,25 +30,9 @@ body {
 .controls button {
     background: rgba(255, 255, 255, 0.3);
     color: white;
-    border: none;
+    border: 2px solid rgba(255, 255, 255, 0.5);
     cursor: pointer;
     padding: 8px 12px;
     font-size: 18px;
     border-radius: 5px;
-}
-
-.fullscreen-toggle {
-    font-size: 18px;
-}
-
-.prev {
-    position: absolute;
-    left: 5%;
-    font-size: 18px;
-}
-
-.next {
-    position: absolute;
-    right: 5%;
-    font-size: 18px;
 }
