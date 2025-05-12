@@ -1,7 +1,6 @@
 let index = 0;
 const images = document.querySelectorAll(".slides img");
 const slideImage = document.getElementById("slide-image");
-let zoomLevel = 1;
 
 function showSlide(i) {
     images.forEach(img => img.style.display = "none");
@@ -35,15 +34,13 @@ document.addEventListener("keydown", (event) => {
     }
 });
 
-// Zoom functionality
+// Zoom functionality (fixed at 1x)
 document.querySelector(".zoom-in").addEventListener("click", () => {
-    zoomLevel = Math.min(zoomLevel + 0.5, 2);
-    slideImage.style.transform = `scale(${zoomLevel})`;
+    slideImage.style.transform = "scale(1)";
 });
 
 document.querySelector(".zoom-out").addEventListener("click", () => {
-    zoomLevel = Math.max(zoomLevel - 0.5, 1);
-    slideImage.style.transform = `scale(${zoomLevel})`;
+    slideImage.style.transform = "scale(1)";
 });
 
 // Display the first image on page load
