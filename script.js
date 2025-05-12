@@ -1,6 +1,7 @@
 let index = 0;
 const images = document.querySelectorAll(".slides img");
 let zoomLevel = 1;
+let hideControlsTimer = null;
 
 function showSlide(i) {
   images.forEach((img, idx) => {
@@ -51,4 +52,16 @@ function zoomOut() {
   img.style.transform = `scale(${zoomLevel})`;
 }
 
+// Show controls when mouse moves, then hide after timeout
+function showControlsTemporarily() {
+  document.body.classList.add('visible-controls');
+  if (hideControlsTimer) clearTimeout(hideControlsTimer);
+  hideControlsTimer = setTimeout(() => {
+    document.body.classList.remove('visible-controls');
+  }, 3000); // 3 seconds delay
+}
+
+document.addEventListener('mousemove', showControlsTemporarily);
+
+// Initialize first slide
 showSlide(index);
