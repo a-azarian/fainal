@@ -103,6 +103,10 @@ body {
   background: rgba(255, 255, 255, 0.35);
 }
 
+.strart-button .blue-text {
+  color: #4da6ff; /* رنگ آبی ملایم */
+}
+
 body:not(.visible-controls) .controls,
 body:not(.visible-controls) .prev,
 body:not(.visible-controls) .next {
