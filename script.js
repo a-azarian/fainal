@@ -90,12 +90,3 @@ function showFullscreenHint() {
     fullscreenHint.classList.remove("visible");
   }, 5000);
 }
-
-document.addEventListener("fullscreenchange", () => {
-  if (document.fullscreenElement) {
-    showKeyHint();
-    showFullscreenHint();
-  }
-});
-
-showSlide(index);
