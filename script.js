@@ -2,9 +2,11 @@ let index = 0;
 const images = document.querySelectorAll(".slides img");
 let zoomed = false;
 let hideControlsTimer = null;
+let hintTimer = null;
+
 const allControls = document.querySelector(".controls");
 const navButtons = document.querySelectorAll(".prev, .next");
-const keyHint = document.querySelector(".key-hint");
+const keyHint = document.getElementById("keyHint");
 
 function showSlide(i) {
   images.forEach((img, idx) => {
@@ -29,8 +31,7 @@ function startPresentation() {
   elem.requestFullscreen().catch(err => console.error("Fullscreen failed:", err));
   index = 1;
   showSlide(index);
-
-  keyHint.classList.add("visible"); // نمایش نوار راهنما
+  showKeyHint();
 }
 
 function nextSlide() {
@@ -69,23 +70,14 @@ function toggleFullscreen() {
 }
 
 document.addEventListener("keydown", (event) => {
+  if (event.key === "ArrowRight") nextSlide();
+  if (event.key === "ArrowLeft") prevSlide();
+  if (event.code === "Space") {
+    event.preventDefault();
+    zoomed ? zoomOut() : zoomIn();
+  }
   if (event.key === "Escape" && document.fullscreenElement) {
     document.exitFullscreen();
-  }
-
-  if (document.fullscreenElement) {
-    if (event.key === "ArrowRight") {
-      nextSlide();
-    } else if (event.key === "ArrowLeft") {
-      prevSlide();
-    } else if (event.key === " " || event.code === "Space") {
-      event.preventDefault();
-      if (zoomed) {
-        zoomOut();
-      } else {
-        zoomIn();
-      }
-    }
   }
 });
 
@@ -97,7 +89,13 @@ function showControlsTemporarily() {
   }, 3000);
 }
 
-document.addEventListener("mousemove", showControlsTemporarily);
+function showKeyHint() {
+  keyHint.classList.add("visible");
+  clearTimeout(hintTimer);
+  hintTimer = setTimeout(() => {
+    keyHint.classList.remove("visible");
+  }, 5000);
+}
 
-// اسلاید اول را نمایش بده
+document.addEventListener("mousemove", showControlsTemporarily);
 showSlide(index);
