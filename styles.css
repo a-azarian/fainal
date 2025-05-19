@@ -16,6 +16,15 @@ body {
   overflow: hidden;
 }
 
+.slides {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
 .slides img {
   width: auto;
   height: 85vh;
@@ -45,7 +54,13 @@ body {
   padding: 10px 14px;
   font-size: 20px;
   border-radius: 8px;
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, transform 0.1s ease;
+}
+
+.controls button:hover,
+.prev:hover,
+.next:hover {
+  background: rgba(0, 0, 0, 0.8);
 }
 
 .prev {
@@ -53,6 +68,7 @@ body {
   left: 3%;
   top: 50%;
   transform: translateY(-50%);
+  z-index: 2;
 }
 
 .next {
@@ -60,6 +76,7 @@ body {
   right: 3%;
   top: 50%;
   transform: translateY(-50%);
+  z-index: 2;
 }
 
 .start-screen {
@@ -83,68 +100,8 @@ body {
   border-radius: 10px;
   font-size: 22px;
   cursor: pointer;
+  transition: background 0.3s ease;
 }
 
-.blue-text {
-  color: #00aaff;
-}
-
-/* راهنمای پایین */
-.key-hint {
-  position: fixed;
-  bottom: 60px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(40, 40, 40, 0.85);
-  color: #e0e0e0;
-  padding: 8px 20px;
-  font-family: "Segoe UI", sans-serif;
-  font-size: 14px;
-  border-radius: 4px;
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.08),
-    0 1px 3px rgba(0, 0, 0, 0.5),
-    inset 0 0 0 1px rgba(0, 0, 0, 0.3);
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  z-index: 9999;
-  pointer-events: none;
-}
-
-.key-hint.visible {
-  opacity: 1;
-}
-
-/* راهنمای ESC بالا */
-.fullscreen-hint {
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(40, 40, 40, 0.85);
-  color: #e0e0e0;
-  font-family: "Segoe UI", sans-serif;
-  font-size: 14px;
-  padding: 8px 20px;
-  border-radius: 4px;
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.08),
-    0 1px 3px rgba(0, 0, 0, 0.5),
-    inset 0 0 0 1px rgba(0, 0, 0, 0.3);
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  z-index: 9999;
-  pointer-events: none;
-}
-
-.fullscreen-hint.visible {
-  opacity: 1;
-}
-
-.fullscreen-hint .key {
-  background: #333;
-  padding: 1px 6px;
-  border-radius: 3px;
-  border: 1px solid #444;
-  margin-left: 5px;
-}
+.start-button:hover {
+  background: rgba(255,
