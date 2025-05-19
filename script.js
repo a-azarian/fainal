@@ -74,3 +74,25 @@ document.addEventListener("keydown", (event) => {
 });
 
 function showKeyHint() {
+  keyHint.classList.add("visible");
+  clearTimeout(hintTimer);
+  hintTimer = setTimeout(() => {
+    keyHint.classList.remove("visible");
+  }, 5000);
+}
+
+function showFullscreenHint() {
+  fullscreenHint.classList.add("visible");
+  setTimeout(() => {
+    fullscreenHint.classList.remove("visible");
+  }, 5000);
+}
+
+document.addEventListener("fullscreenchange", () => {
+  if (document.fullscreenElement) {
+    showKeyHint();
+    showFullscreenHint();
+  }
+});
+
+showSlide(index);
