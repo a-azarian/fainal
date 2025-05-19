@@ -27,7 +27,7 @@ body {
 
 .slides img {
   width: auto;
-  height: 85vh; /* بزرگتر ولی نه تمام‌قد */
+  height: 85vh;
   display: none;
   object-fit: contain;
   transition: transform 0.3s ease-in-out;
@@ -108,7 +108,7 @@ body {
 }
 
 .blue-text {
-  color: #00aaff; /* آبی روشن - قابل تغییر */
+  color: #00aaff;
 }
 
 body:not(.visible-controls) .controls,
@@ -139,8 +139,4 @@ body.visible-controls .next {
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.4);
   opacity: 0;
   transition: opacity 0.5s ease;
-  z-index: 999;
-}
-.key-hint.visible {
-  opacity: 1;
-}
+  z-index:
