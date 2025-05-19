@@ -124,7 +124,7 @@ body.visible-controls .next {
   opacity: 1;
 }
 
-/* نوار راهنمای کلیدها مشابه ESC Bar ویندوز */
+/* نوار راهنمای کلیدها شبیه به ESC در ویندوز */
 .key-hint {
   position: fixed;
   bottom: 20px;
