@@ -124,10 +124,10 @@ body.visible-controls .next {
   opacity: 1;
 }
 
-/* نوار راهنمای کلیدها شبیه به ESC در ویندوز */
+/* نوار راهنمای پایین (شبیه نوار ESC در ویندوز 10) */
 .key-hint {
   position: fixed;
-  bottom: 20px;
+  bottom: 60px; /* کمی بالا برای قرارگیری روی اسلاید */
   left: 50%;
   transform: translateX(-50%);
   background: #2c2c2c;
