@@ -81,9 +81,12 @@ function showKeyHint() {
   }, 5000);
 }
 
+let fullscreenHintTimer = null;
+
 function showFullscreenHint() {
   fullscreenHint.classList.add("visible");
-  setTimeout(() => {
+  clearTimeout(fullscreenHintTimer);
+  fullscreenHintTimer = setTimeout(() => {
     fullscreenHint.classList.remove("visible");
   }, 5000);
 }
