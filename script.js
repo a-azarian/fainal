@@ -75,8 +75,32 @@ function toggleFullscreen() {
 
 // خروج از تمام صفحه با Escape
 document.addEventListener("keydown", (event) => {
+  // خروج از حالت تمام صفحه با Escape
   if (event.key === "Escape" && document.fullscreenElement) {
     document.exitFullscreen();
+  }
+
+  // فقط در fullscreen کلیدها کار کنند
+  if (document.fullscreenElement) {
+    if (event.key === "ArrowRight") {
+      nextSlide();
+    } else if (event.key === "ArrowLeft") {
+      prevSlide();
+    } else if (event.key === " ") {
+      event.preventDefault();
+      if (!zoomed) {
+        zoomIn();
+      } else {
+        zoomOut();
+      }
+    }
+
+    // نمایش موقت راهنمای کلیدها
+    document.body.classList.add("show-hint");
+    clearTimeout(window.hintTimer);
+    window.hintTimer = setTimeout(() => {
+      document.body.classList.remove("show-hint");
+    }, 5000);
   }
 });
 
