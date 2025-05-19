@@ -123,3 +123,23 @@ body.visible-controls .prev,
 body.visible-controls .next {
   opacity: 1;
 }
+
+.keyboard-hint {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  z-index: 20;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+body.show-hint .keyboard-hint {
+  opacity: 1;
+}
