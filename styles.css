@@ -124,16 +124,27 @@ body.visible-controls .next {
   opacity: 1;
 }
 
+/* نوار راهنمای کلیدها مشابه ESC Bar ویندوز */
 .key-hint {
   position: fixed;
-  bottom: 0;
+  bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(30, 30, 30, 0.9);
-  color: white;
-  padding: 8px 20px;
+  background: #2c2c2c;
+  color: #e0e0e0;
+  padding: 6px 16px;
   font-family: "Segoe UI", sans-serif;
-  font-size: 14px;
-  border-top-left-radius: 6px;
-  border-top-right-radius: 6px;
-  box-shadow: 0 -2px
+  font-size: 13px;
+  border-radius: 3px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1),
+              0 1px 3px rgba(0, 0, 0, 0.6),
+              inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.key-hint.visible {
+  opacity: 1;
+}
