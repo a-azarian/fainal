@@ -16,15 +16,6 @@ body {
   overflow: hidden;
 }
 
-.slides {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-}
-
 .slides img {
   width: auto;
   height: 85vh;
@@ -54,13 +45,7 @@ body {
   padding: 10px 14px;
   font-size: 20px;
   border-radius: 8px;
-  transition: background 0.3s ease, transform 0.1s ease;
-}
-
-.controls button:hover,
-.prev:hover,
-.next:hover {
-  background: rgba(0, 0, 0, 0.8);
+  transition: background 0.3s ease;
 }
 
 .prev {
@@ -68,7 +53,6 @@ body {
   left: 3%;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 2;
 }
 
 .next {
@@ -76,7 +60,6 @@ body {
   right: 3%;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 2;
 }
 
 .start-screen {
@@ -100,45 +83,28 @@ body {
   border-radius: 10px;
   font-size: 22px;
   cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.start-button:hover {
-  background: rgba(255, 255, 255, 0.35);
 }
 
 .blue-text {
   color: #00aaff;
 }
 
-body:not(.visible-controls) .controls,
-body:not(.visible-controls) .prev,
-body:not(.visible-controls) .next {
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-
-body.visible-controls .controls,
-body.visible-controls .prev,
-body.visible-controls .next {
-  opacity: 1;
-}
-
-/* نوار راهنمای پایین (شبیه نوار ESC در ویندوز 10) */
+/* راهنمای پایین */
 .key-hint {
   position: fixed;
-  bottom: 60px; /* کمی بالا برای قرارگیری روی اسلاید */
+  bottom: 60px;
   left: 50%;
   transform: translateX(-50%);
-  background: #2c2c2c;
+  background: rgba(40, 40, 40, 0.85);
   color: #e0e0e0;
-  padding: 6px 16px;
+  padding: 8px 20px;
   font-family: "Segoe UI", sans-serif;
-  font-size: 13px;
-  border-radius: 3px;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1),
-              0 1px 3px rgba(0, 0, 0, 0.6),
-              inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+  font-size: 14px;
+  border-radius: 4px;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 1px 3px rgba(0, 0, 0, 0.5),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.3);
   opacity: 0;
   transition: opacity 0.4s ease;
   z-index: 9999;
@@ -147,4 +113,38 @@ body.visible-controls .next {
 
 .key-hint.visible {
   opacity: 1;
+}
+
+/* راهنمای ESC بالا */
+.fullscreen-hint {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(40, 40, 40, 0.85);
+  color: #e0e0e0;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 14px;
+  padding: 8px 20px;
+  border-radius: 4px;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 1px 3px rgba(0, 0, 0, 0.5),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.fullscreen-hint.visible {
+  opacity: 1;
+}
+
+.fullscreen-hint .key {
+  background: #333;
+  padding: 1px 6px;
+  border-radius: 3px;
+  border: 1px solid #444;
+  margin-left: 5px;
 }
