@@ -6,7 +6,6 @@ let hideControlsTimer = null;
 const allControls = document.querySelector(".controls");
 const navButtons = document.querySelectorAll(".prev, .next");
 const keyboardHelp = document.getElementById("keyboardHelp");
-const fullscreenInstruction = document.querySelector(".fullscreen-instruction");
 
 function showSlide(i) {
   images.forEach((img, idx) => {
@@ -32,12 +31,8 @@ function startPresentation() {
   index = 1;
   showSlide(index);
 
-  // Show both help and esc instructions
-  fullscreenInstruction.style.display = "block";
   keyboardHelp.style.display = "block";
-
   setTimeout(() => {
-    fullscreenInstruction.style.display = "none";
     keyboardHelp.style.display = "none";
   }, 5000);
 }
