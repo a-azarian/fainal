@@ -4,9 +4,8 @@ let zoomed = false;
 let hideControlsTimer = null;
 let hintTimer = null;
 
-const allControls = document.querySelector(".controls");
-const navButtons = document.querySelectorAll(".prev, .next");
 const keyHint = document.getElementById("keyHint");
+const fullscreenHint = document.getElementById("fullscreenHint");
 
 function showSlide(i) {
   images.forEach((img, idx) => {
@@ -16,22 +15,18 @@ function showSlide(i) {
   zoomed = false;
 
   if (i === 0) {
-    allControls.style.display = "none";
-    navButtons.forEach(btn => btn.style.display = "none");
     document.querySelector(".start-screen").style.display = "flex";
   } else {
-    allControls.style.display = "flex";
-    navButtons.forEach(btn => btn.style.display = "block");
     document.querySelector(".start-screen").style.display = "none";
   }
 }
 
 function startPresentation() {
-  const elem = document.documentElement;
-  elem.requestFullscreen().catch(err => console.error("Fullscreen failed:", err));
+  document.documentElement.requestFullscreen().catch(console.error);
   index = 1;
   showSlide(index);
   showKeyHint();
+  showFullscreenHint();
 }
 
 function nextSlide() {
@@ -59,11 +54,8 @@ function zoomOut() {
 }
 
 function toggleFullscreen() {
-  const elem = document.documentElement;
   if (!document.fullscreenElement) {
-    elem.requestFullscreen().catch(err =>
-      console.error("Fullscreen failed:", err)
-    );
+    document.documentElement.requestFullscreen();
   } else {
     document.exitFullscreen();
   }
@@ -81,21 +73,4 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
-function showControlsTemporarily() {
-  document.body.classList.add("visible-controls");
-  if (hideControlsTimer) clearTimeout(hideControlsTimer);
-  hideControlsTimer = setTimeout(() => {
-    document.body.classList.remove("visible-controls");
-  }, 3000);
-}
-
 function showKeyHint() {
-  keyHint.classList.add("visible");
-  clearTimeout(hintTimer);
-  hintTimer = setTimeout(() => {
-    keyHint.classList.remove("visible");
-  }, 5000);
-}
-
-document.addEventListener("mousemove", showControlsTemporarily);
-showSlide(index);
