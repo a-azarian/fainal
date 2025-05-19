@@ -1,125 +1,43 @@
-body {
-  text-align: center;
-  background: #000;
-  overflow: hidden;
-  margin: 0;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Portfolio</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="start-screen">
+    <button class="start-button" onclick="startPresentation()">Click here to <span class="blue-text">start</span></button>
+  </div>
 
-.slider-container {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden;
-}
+  <div class="slider-container">
+    <div class="slides">
+      <img src="00.jpg" alt="Start Slide" />
+      <img src="01.jpg" alt="Project 1" />
+      <img src="02.jpg" alt="Project 2" />
+    </div>
 
-.slides img {
-  width: auto;
-  height: 85vh;
-  display: none;
-  object-fit: contain;
-  transition: transform 0.3s ease-in-out;
-  z-index: 1;
-}
+    <div class="controls">
+      <button class="zoom-in" onclick="zoomIn()">+</button>
+      <button class="zoom-out" onclick="zoomOut()">−</button>
+      <button class="fullscreen-toggle" onclick="toggleFullscreen()">⛶</button>
+    </div>
 
-.controls {
-  position: absolute;
-  bottom: 2%;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 15px;
-  z-index: 2;
-}
+    <button class="prev" onclick="prevSlide()">❮</button>
+    <button class="next" onclick="nextSlide()">❯</button>
+  </div>
 
-.controls button,
-.prev,
-.next {
-  background: rgba(0, 0, 0, 0.6);
-  color: white;
-  border: none;
-  cursor: pointer;
-  padding: 10px 14px;
-  font-size: 20px;
-  border-radius: 8px;
-  transition: background 0.3s ease;
-}
+  <!-- نوار راهنمای پایین -->
+  <div class="key-hint" id="keyHint">
+    Press ← or → to navigate, Space to zoom
+  </div>
 
-.prev {
-  position: absolute;
-  left: 3%;
-  top: 50%;
-  transform: translateY(-50%);
-}
+  <!-- نوار ESC مانند ویندوز -->
+  <div class="fullscreen-hint" id="fullscreenHint">
+    To exit full screen, press <span class="key">Esc</span>
+  </div>
 
-.next {
-  position: absolute;
-  right: 3%;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.start-screen {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: black;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 10;
-}
-
-.start-button {
-  background: rgba(255, 255, 255, 0.15);
-  color: white;
-  padding: 16px 32px;
-  border: none;
-  border-radius: 10px;
-  font-size: 22px;
-  cursor: pointer;
-}
-
-.blue-text {
-  color: #00aaff;
-}
-
-/* راهنمای پایین */
-.key-hint {
-  position: fixed;
-  bottom: 60px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(40, 40, 40, 0.85);
-  color: #e0e0e0;
-  padding: 8px 20px;
-  font-family: "Segoe UI", sans-serif;
-  font-size: 14px;
-  border-radius: 4px;
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.08),
-    0 1px 3px rgba(0, 0, 0, 0.5),
-    inset 0 0 0 1px rgba(0, 0, 0, 0.3);
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  z-index: 9999;
-  pointer-events: none;
-}
-
-.key-hint.visible {
-  opacity: 1;
-}
-
-/* راهنمای ESC بالا */
-.fullscreen-hint {
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(40, 40, 40, 0.85);
-  color: #e0e0e0;
+  <script src="script.js"></script>
+</body>
+</html>
