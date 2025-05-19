@@ -140,3 +140,6 @@ body.visible-controls .next {
   display: none;
 }
 
+body.hide-cursor {
+  cursor: none;
+}
