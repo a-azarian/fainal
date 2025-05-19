@@ -3,6 +3,11 @@ body {
   background: #000;
   overflow: hidden;
   margin: 0;
+  cursor: default;
+}
+
+body.hide-cursor {
+  cursor: none;
 }
 
 .slider-container {
@@ -124,17 +129,23 @@ body.visible-controls .next {
   opacity: 1;
 }
 
+/* Keyboard Help Box (bottom bar) */
 .keyboard-help {
   position: fixed;
-  bottom: 60px;
+  bottom: 30px;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(32, 32, 32, 0.85);
+  background: rgba(30, 30, 30, 0.8);
   color: #fff;
-  font-size: 15px;
-  padding: 14px 28px; /* بزرگ‌تر شد */
-  border-radius: 0; /* گوشه‌ها صاف شد */
-  font-family: Segoe UI, sans-serif;
-  z-index: 99;
-  display: none;
+  padding: 8px 20px;
+  font-size: 14px;
+  border: 1px solid #444;
+  z-index: 100;
+  font-family: "Segoe UI", sans-serif;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.keyboard-help.show {
+  opacity: 1;
 }
