@@ -2,7 +2,6 @@ let index = 0;
 const images = document.querySelectorAll(".slides img");
 let zoomed = false;
 let hideControlsTimer = null;
-
 const allControls = document.querySelector(".controls");
 const navButtons = document.querySelectorAll(".prev, .next");
 const keyHint = document.querySelector(".key-hint");
@@ -30,7 +29,8 @@ function startPresentation() {
   elem.requestFullscreen().catch(err => console.error("Fullscreen failed:", err));
   index = 1;
   showSlide(index);
-  keyHint.classList.add("visible");
+
+  keyHint.classList.add("visible"); // نمایش نوار راهنما
 }
 
 function nextSlide() {
@@ -95,3 +95,9 @@ function showControlsTemporarily() {
   hideControlsTimer = setTimeout(() => {
     document.body.classList.remove("visible-controls");
   }, 3000);
+}
+
+document.addEventListener("mousemove", showControlsTemporarily);
+
+// اسلاید اول را نمایش بده
+showSlide(index);
