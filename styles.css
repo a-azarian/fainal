@@ -3,7 +3,11 @@ body {
   background: #000;
   overflow: hidden;
   margin: 0;
-  cursor: auto;
+  cursor: default;
+}
+
+body.hide-cursor {
+  cursor: none;
 }
 
 .slider-container {
@@ -125,31 +129,23 @@ body.visible-controls .next {
   opacity: 1;
 }
 
-/* راهنمای کلیدها پایین صفحه */
+/* Keyboard Help Box (bottom bar) */
 .keyboard-help {
   position: fixed;
-  bottom: 20px;
+  bottom: 30px;
   left: 50%;
   transform: translateX(-50%);
   background: rgba(30, 30, 30, 0.8);
   color: #fff;
-  padding: 10px 22px;
-  font-size: 15px;
+  padding: 8px 20px;
+  font-size: 14px;
   border: 1px solid #444;
   z-index: 100;
   font-family: "Segoe UI", sans-serif;
   opacity: 0;
   transition: opacity 0.3s ease;
   pointer-events: none;
-  border-radius: 0;
 }
-
-/* نمایش با انیمیشن */
-.keyboard-help.visible {
+.keyboard-help.show {
   opacity: 1;
-}
-
-/* پنهان کردن موس */
-body.hide-cursor {
-  cursor: none;
 }
