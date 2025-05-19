@@ -3,11 +3,10 @@ const images = document.querySelectorAll(".slides img");
 let zoomed = false;
 let hideControlsTimer = null;
 let hideCursorTimer = null;
-let keyboardHelpTimeout = null;
 
 const allControls = document.querySelector(".controls");
 const navButtons = document.querySelectorAll(".prev, .next");
-const keyboardHelp = document.querySelector(".keyboard-help");
+const helpBar = document.querySelector(".keyboard-help");
 
 // نمایش اسلاید مشخص
 function showSlide(i) {
@@ -31,24 +30,44 @@ function showSlide(i) {
 // شروع نمایش
 function startPresentation() {
   const elem = document.documentElement;
-  elem.requestFullscreen().catch(err => console.error("Fullscreen failed:", err));
-  index = 1;
-  showSlide(index);
+  elem.requestFullscreen().then(() => {
+    index = 1;
+    showSlide(index);
+
+    // نمایش راهنمای پایین فقط هنگام ورود به fullscreen
+    helpBar.style.display = "block";
+    setTimeout(() => {
+      helpBar.style.display = "none";
+    }, 4000);
+  }).catch(err => console.error("Fullscreen failed:", err));
 }
 
-// اسلاید بعدی
+// کنترل کیبورد
+document.addEventListener("keydown", (e) => {
+  if (e.key === "ArrowRight") nextSlide();
+  else if (e.key === "ArrowLeft") prevSlide();
+  else if (e.code === "Space") {
+    e.preventDefault();
+    zoomed ? zoomOut() : zoomIn();
+  }
+});
+
+// کنترل دکمه‌ها
 function nextSlide() {
-  index = (index + 1) % images.length;
-  showSlide(index);
+  if (index < images.length - 1) {
+    index++;
+    showSlide(index);
+  }
 }
 
-// اسلاید قبلی
 function prevSlide() {
-  index = (index - 1 + images.length) % images.length;
-  showSlide(index);
+  if (index > 1) {
+    index--;
+    showSlide(index);
+  }
 }
 
-// زوم در
+// زوم
 function zoomIn() {
   if (!zoomed) {
     images[index].style.transform = "scale(1.5)";
@@ -56,7 +75,6 @@ function zoomIn() {
   }
 }
 
-// زوم بیرون
 function zoomOut() {
   if (zoomed) {
     images[index].style.transform = "scale(1)";
@@ -64,52 +82,33 @@ function zoomOut() {
   }
 }
 
-// تغییر حالت تمام صفحه
+// تمام‌صفحه
 function toggleFullscreen() {
   const elem = document.documentElement;
   if (!document.fullscreenElement) {
     elem.requestFullscreen().then(() => {
-      showKeyboardHelp();
-    }).catch(err => console.error("Fullscreen failed:", err));
+      helpBar.style.display = "block";
+      setTimeout(() => {
+        helpBar.style.display = "none";
+      }, 4000);
+    });
   } else {
     document.exitFullscreen();
   }
 }
 
-// کمک‌نمای پایین صفحه
-function showKeyboardHelp() {
-  keyboardHelp.classList.add("show");
-  clearTimeout(keyboardHelpTimeout);
-  keyboardHelpTimeout = setTimeout(() => {
-    keyboardHelp.classList.remove("show");
-  }, 4000);
-}
-
-// خروج از تمام صفحه با Escape
-document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" && document.fullscreenElement) {
-    document.exitFullscreen();
-  }
-
-  if (event.key === "ArrowRight") nextSlide();
-  if (event.key === "ArrowLeft") prevSlide();
-  if (event.key === " ") {
-    event.preventDefault();
-    zoomed ? zoomOut() : zoomIn();
-  }
-});
-
-// نمایش کنترل‌ها و موس با حرکت
+// کنترل موس و کنترل‌ها
 function showControlsTemporarily() {
   document.body.classList.add("visible-controls");
   document.body.classList.remove("hide-cursor");
 
   if (hideControlsTimer) clearTimeout(hideControlsTimer);
+  if (hideCursorTimer) clearTimeout(hideCursorTimer);
+
   hideControlsTimer = setTimeout(() => {
     document.body.classList.remove("visible-controls");
   }, 4000);
 
-  if (hideCursorTimer) clearTimeout(hideCursorTimer);
   hideCursorTimer = setTimeout(() => {
     document.body.classList.add("hide-cursor");
   }, 4000);
