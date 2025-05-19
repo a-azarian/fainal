@@ -2,10 +2,11 @@ let index = 0;
 const images = document.querySelectorAll(".slides img");
 let zoomed = false;
 let hideControlsTimer = null;
-let hintTimer = null;
 
-const keyHint = document.getElementById("keyHint");
-const fullscreenHint = document.getElementById("fullscreenHint");
+const allControls = document.querySelector(".controls");
+const navButtons = document.querySelectorAll(".prev, .next");
+const keyboardHelp = document.getElementById("keyboardHelp");
+const fullscreenInstruction = document.querySelector(".fullscreen-instruction");
 
 function showSlide(i) {
   images.forEach((img, idx) => {
@@ -15,18 +16,30 @@ function showSlide(i) {
   zoomed = false;
 
   if (i === 0) {
+    allControls.style.display = "none";
+    navButtons.forEach(btn => btn.style.display = "none");
     document.querySelector(".start-screen").style.display = "flex";
   } else {
+    allControls.style.display = "flex";
+    navButtons.forEach(btn => btn.style.display = "block");
     document.querySelector(".start-screen").style.display = "none";
   }
 }
 
 function startPresentation() {
-  document.documentElement.requestFullscreen().catch(console.error);
+  const elem = document.documentElement;
+  elem.requestFullscreen().catch(err => console.error("Fullscreen failed:", err));
   index = 1;
   showSlide(index);
-  showKeyHint();
-  showFullscreenHint();
+
+  // Show both help and esc instructions
+  fullscreenInstruction.style.display = "block";
+  keyboardHelp.style.display = "block";
+
+  setTimeout(() => {
+    fullscreenInstruction.style.display = "none";
+    keyboardHelp.style.display = "none";
+  }, 5000);
 }
 
 function nextSlide() {
@@ -54,45 +67,35 @@ function zoomOut() {
 }
 
 function toggleFullscreen() {
+  const elem = document.documentElement;
   if (!document.fullscreenElement) {
-    document.documentElement.requestFullscreen();
+    elem.requestFullscreen().catch(err => console.error("Fullscreen failed:", err));
   } else {
     document.exitFullscreen();
   }
 }
 
 document.addEventListener("keydown", (event) => {
-  if (event.key === "ArrowRight") nextSlide();
-  if (event.key === "ArrowLeft") prevSlide();
-  if (event.code === "Space") {
+  if (event.key === "Escape" && document.fullscreenElement) {
+    document.exitFullscreen();
+  } else if (event.key === "ArrowRight") {
+    nextSlide();
+  } else if (event.key === "ArrowLeft") {
+    prevSlide();
+  } else if (event.code === "Space") {
     event.preventDefault();
     zoomed ? zoomOut() : zoomIn();
   }
-  if (event.key === "Escape" && document.fullscreenElement) {
-    document.exitFullscreen();
-  }
 });
 
-function showKeyHint() {
-  keyHint.classList.add("visible");
-  clearTimeout(hintTimer);
-  hintTimer = setTimeout(() => {
-    keyHint.classList.remove("visible");
-  }, 5000);
+function showControlsTemporarily() {
+  document.body.classList.add("visible-controls");
+  if (hideControlsTimer) clearTimeout(hideControlsTimer);
+  hideControlsTimer = setTimeout(() => {
+    document.body.classList.remove("visible-controls");
+  }, 3000);
 }
 
-function showFullscreenHint() {
-  fullscreenHint.classList.add("visible");
-  setTimeout(() => {
-    fullscreenHint.classList.remove("visible");
-  }, 5000);
-}
-
-document.addEventListener("fullscreenchange", () => {
-  if (document.fullscreenElement) {
-    showKeyHint();
-    showFullscreenHint();
-  }
-});
+document.addEventListener("mousemove", showControlsTemporarily);
 
 showSlide(index);
