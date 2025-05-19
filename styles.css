@@ -124,22 +124,6 @@ body.visible-controls .next {
   opacity: 1;
 }
 
-/* ESC instruction box (top center) */
-.fullscreen-instruction {
-  position: fixed;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(32, 32, 32, 0.85);
-  color: #fff;
-  font-size: 14px;
-  padding: 8px 16px;
-  border-radius: 4px;
-  font-family: Segoe UI, sans-serif;
-  z-index: 99;
-  display: none;
-}
-
 /* Keyboard help (bottom center) */
 .keyboard-help {
   position: fixed;
