@@ -5,8 +5,8 @@ let hideControlsTimer = null;
 
 const allControls = document.querySelector(".controls");
 const navButtons = document.querySelectorAll(".prev, .next");
+const keyHint = document.querySelector(".key-hint");
 
-// نمایش اسلاید مشخص
 function showSlide(i) {
   images.forEach((img, idx) => {
     img.style.display = idx === i ? "block" : "none";
@@ -25,27 +25,24 @@ function showSlide(i) {
   }
 }
 
-// شروع نمایش
 function startPresentation() {
   const elem = document.documentElement;
   elem.requestFullscreen().catch(err => console.error("Fullscreen failed:", err));
   index = 1;
   showSlide(index);
+  keyHint.classList.add("visible");
 }
 
-// اسلاید بعدی
 function nextSlide() {
   index = (index + 1) % images.length;
   showSlide(index);
 }
 
-// اسلاید قبلی
 function prevSlide() {
   index = (index - 1 + images.length) % images.length;
   showSlide(index);
 }
 
-// زوم در (1.5x)
 function zoomIn() {
   if (!zoomed) {
     images[index].style.transform = "scale(1.5)";
@@ -53,7 +50,6 @@ function zoomIn() {
   }
 }
 
-// زوم بیرون (1x)
 function zoomOut() {
   if (zoomed) {
     images[index].style.transform = "scale(1)";
@@ -61,7 +57,6 @@ function zoomOut() {
   }
 }
 
-// تغییر حالت تمام صفحه
 function toggleFullscreen() {
   const elem = document.documentElement;
   if (!document.fullscreenElement) {
@@ -73,47 +68,30 @@ function toggleFullscreen() {
   }
 }
 
-// خروج از تمام صفحه با Escape
 document.addEventListener("keydown", (event) => {
-  // خروج از حالت تمام صفحه با Escape
   if (event.key === "Escape" && document.fullscreenElement) {
     document.exitFullscreen();
   }
 
-  // فقط در fullscreen کلیدها کار کنند
   if (document.fullscreenElement) {
     if (event.key === "ArrowRight") {
       nextSlide();
     } else if (event.key === "ArrowLeft") {
       prevSlide();
-    } else if (event.key === " ") {
+    } else if (event.key === " " || event.code === "Space") {
       event.preventDefault();
-      if (!zoomed) {
-        zoomIn();
-      } else {
+      if (zoomed) {
         zoomOut();
+      } else {
+        zoomIn();
       }
     }
-
-    // نمایش موقت راهنمای کلیدها
-    document.body.classList.add("show-hint");
-    clearTimeout(window.hintTimer);
-    window.hintTimer = setTimeout(() => {
-      document.body.classList.remove("show-hint");
-    }, 5000);
   }
 });
 
-// نمایش کنترل‌ها با حرکت موس
 function showControlsTemporarily() {
   document.body.classList.add("visible-controls");
   if (hideControlsTimer) clearTimeout(hideControlsTimer);
   hideControlsTimer = setTimeout(() => {
     document.body.classList.remove("visible-controls");
   }, 3000);
-}
-
-document.addEventListener("mousemove", showControlsTemporarily);
-
-// نمایش اسلاید اول در شروع
-showSlide(index);
