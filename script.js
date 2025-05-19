@@ -84,10 +84,21 @@ function showHelpTemporarily() {
 }
 
 // خروج از تمام صفحه با Escape
-document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" && document.fullscreenElement) {
-    document.exitFullscreen();
-  }
+document.addEventListener("mousemove", () => {
+  document.body.classList.add("visible-controls");
+  document.body.classList.remove("hide-cursor");
+
+  if (hideControlsTimer) clearTimeout(hideControlsTimer);
+
+  hideControlsTimer = setTimeout(() => {
+    document.body.classList.remove("visible-controls");
+
+    // فقط در حالت فول اسکرین موس رو مخفی کن
+    if (document.fullscreenElement) {
+      document.body.classList.add("hide-cursor");
+    }
+  }, 4000); // 4 ثانیه
+});
 
   if (event.key === "ArrowRight") {
     nextSlide();
