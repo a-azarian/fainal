@@ -2,18 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
   <title>My Portfolio</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="start-screen" id="startScreen">
-    <button class="start-button" id="startButton" onclick="startPresentation()">
-      Click here to <span class="blue-text">start</span>
-    </button>
-
-    <!-- آیکون برای موبایل -->
-    <img src="b39de4c4-99db-41ba-8480-8deca9d37c32.png" id="rotateIcon" class="rotate-icon" alt="Rotate device">
+  <div class="start-screen">
+    <!-- موبایل و تبلت: نمایش لوگو چرخش گوشی چشمک زن -->
+    <img src="rotate-blue.png" alt="Rotate your device" class="rotate-icon" />
+    
+    <!-- ویندوز و دسکتاپ: دکمه استارت -->
+    <button class="start-button" onclick="startPresentation()">Click here to <span class="blue-text">start</span></button>
   </div>
 
   <div class="slider-container">
