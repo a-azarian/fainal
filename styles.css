@@ -3,9 +3,7 @@ body {
   background: #000;
   overflow: hidden;
   margin: 0;
-  touch-action: none;
-  user-select: none;
-  -webkit-user-select: none;
+  touch-action: manipulation;
 }
 
 .slider-container {
@@ -36,6 +34,7 @@ body {
   transition: transform 0.3s ease-in-out;
   z-index: 1;
   pointer-events: none;
+  user-select: none;
 }
 
 .controls {
@@ -126,4 +125,34 @@ body.visible-controls .controls,
 body.visible-controls .prev,
 body.visible-controls .next {
   opacity: 1;
+}
+
+/* Hint when iOS device in portrait mode */
+.rotate-hint {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: black;
+  color: white;
+  width: 100vw;
+  height: 100vh;
+  z-index: 20;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  text-align: center;
+  padding: 20px;
+}
+
+.phone-icon {
+  font-size: 80px;
+  animation: blink 1s infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
 }
