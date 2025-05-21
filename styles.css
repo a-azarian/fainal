@@ -1,4 +1,4 @@
-/* ریست اولیه */
+/* Reset */
 * {
   margin: 0;
   padding: 0;
@@ -8,15 +8,19 @@
 html, body {
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
   background: #000;
-  text-align: center;
-  -webkit-touch-callout: none; /* جلوگیری از منو روی آیفون */
+  overflow: hidden;
+  -webkit-touch-callout: none;
   -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none;
   touch-action: manipulation;
   overscroll-behavior: none;
+
+  /* مهم برای مخفی کردن نوار مرورگر در آیفون و اندروید */
+  height: 100vh; /* fallback */
+  height: -webkit-fill-available;
+  height: 100dvh; /* dynamic viewport height in new browsers */
 }
 
 .slider-container {
@@ -30,12 +34,11 @@ html, body {
 }
 
 .slides {
-  width: 100%;
-  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
 .slides img {
@@ -43,92 +46,89 @@ html, body {
   max-height: 100vh;
   object-fit: contain;
   display: none;
-  transition: transform 0.3s ease-in-out;
   margin: auto;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* نمایش فقط عکس فعال */
+.slides img.active {
+  display: block;
+}
+
+/* کنترل ها */
+.controls, .prev, .next {
+  position: absolute;
+  z-index: 20;
+  user-select: none;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  border-radius: 8px;
+  font-size: 20px;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background 0.3s ease;
 }
 
 .controls {
-  position: absolute;
   bottom: 2%;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   gap: 15px;
-  z-index: 10;
-}
-
-.controls button,
-.prev,
-.next {
-  background: rgba(0, 0, 0, 0.6);
-  color: white;
-  border: none;
-  cursor: pointer;
-  padding: 10px 14px;
-  font-size: 20px;
-  border-radius: 8px;
-  transition: background 0.3s ease, transform 0.1s ease;
-  user-select: none;
-}
-
-.controls button:hover,
-.prev:hover,
-.next:hover {
-  background: rgba(0, 0, 0, 0.8);
 }
 
 .prev {
-  position: absolute;
-  left: 3%;
+  left: 2%;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 10;
 }
 
 .next {
-  position: absolute;
-  right: 3%;
+  right: 2%;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 10;
+}
+
+.controls button:hover, .prev:hover, .next:hover {
+  background: rgba(0,0,0,0.8);
 }
 
 /* صفحه شروع */
 .start-screen {
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: fixed;
+  top: 0; left: 0;
   width: 100vw;
   height: 100vh;
   background: black;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 20;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
 }
 
-/* دکمه شروع در دسکتاپ */
+/* دکمه استارت */
 .start-button {
-  background: rgba(255, 255, 255, 0.15);
+  margin-top: 30px;
+  background: rgba(255,255,255,0.15);
+  border: none;
   color: white;
   padding: 16px 32px;
-  border: none;
   border-radius: 10px;
   font-size: 22px;
   cursor: pointer;
   transition: background 0.3s ease;
 }
-
 .start-button:hover {
-  background: rgba(255, 255, 255, 0.35);
+  background: rgba(255,255,255,0.35);
 }
 
 .blue-text {
   color: #00aaff;
 }
 
-/* آیکون چرخش گوشی (Rotate Icon) */
+/* آیکون چرخش */
 .rotate-icon {
   width: 120px;
   height: 120px;
@@ -136,13 +136,13 @@ html, body {
   animation: blinkRotate 2s infinite ease-in-out;
 }
 
-/* انیمیشن چشمک زدن */
+/* انیمیشن چشمک */
 @keyframes blinkRotate {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.3; }
 }
 
-/* مخفی کردن دکمه شروع در موبایل و تبلت */
+/* فقط موبایل و تبلت - نمایش آیکون چرخش، مخفی دکمه استارت */
 @media screen and (max-width: 1024px) {
   .start-button {
     display: none;
@@ -152,33 +152,28 @@ html, body {
   }
 }
 
-/* مخفی کردن آیکون چرخش در دسکتاپ */
+/* فقط دسکتاپ - مخفی آیکون چرخش */
 @media screen and (min-width: 1025px) {
   .rotate-icon {
     display: none;
   }
 }
 
-/* مخفی کردن کنترل‌ها در حالت شروع */
-body:not(.visible-controls) .controls,
-body:not(.visible-controls) .prev,
-body:not(.visible-controls) .next {
-  opacity: 0;
-  transition: opacity 0.5s ease;
+/* مخفی کردن کنترل‌ها در صفحه شروع */
+body:not(.started) .controls,
+body:not(.started) .prev,
+body:not(.started) .next {
+  display: none;
 }
 
-body.visible-controls .controls,
-body.visible-controls .prev,
-body.visible-controls .next {
-  opacity: 1;
+/* تصویر فعال */
+.slides img.active {
+  display: block;
 }
 
-/* رفع مشکل نوار مرورگر در حالت افقی موبایل (سافاری و دیگر مرورگرها) */
-@supports (-webkit-touch-callout: none) {
-  body, html {
-    height: -webkit-fill-available;
-  }
-  .slider-container {
-    height: -webkit-fill-available;
+/* fullscreen dynamic height برای مرورگرهای جدید */
+@supports (height: 100dvh) {
+  html, body, .slider-container {
+    height: 100dvh;
   }
 }
