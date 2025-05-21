@@ -6,10 +6,7 @@ let hideControlsTimer = null;
 const allControls = document.querySelector(".controls");
 const navButtons = document.querySelectorAll(".prev, .next");
 
-// بررسی نوع سیستم عامل
-function isIOS() {
-  return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-}
+const isIOSDevice = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
 // نمایش اسلاید مشخص
 function showSlide(i) {
@@ -32,13 +29,10 @@ function showSlide(i) {
 
 // شروع نمایش
 function startPresentation() {
+  const elem = document.documentElement;
+  elem.requestFullscreen().catch(err => console.error("Fullscreen failed:", err));
   index = 1;
   showSlide(index);
-
-  if (!isIOS()) {
-    const elem = document.documentElement;
-    elem.requestFullscreen().catch(err => console.error("Fullscreen failed:", err));
-  }
 }
 
 // اسلاید بعدی
@@ -53,7 +47,7 @@ function prevSlide() {
   showSlide(index);
 }
 
-// زوم در
+// زوم در (1.5x)
 function zoomIn() {
   if (!zoomed) {
     images[index].style.transform = "scale(1.5)";
@@ -61,7 +55,7 @@ function zoomIn() {
   }
 }
 
-// زوم بیرون
+// زوم بیرون (1x)
 function zoomOut() {
   if (zoomed) {
     images[index].style.transform = "scale(1)";
@@ -81,7 +75,7 @@ function toggleFullscreen() {
   }
 }
 
-// خروج از تمام صفحه با ESC
+// خروج از تمام صفحه با Escape
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && document.fullscreenElement) {
     document.exitFullscreen();
@@ -99,5 +93,23 @@ function showControlsTemporarily() {
 
 document.addEventListener("mousemove", showControlsTemporarily);
 
-// اجرای اسلاید اول
+// پشتیبانی iOS: واکنش به چرخش دستگاه
+window.addEventListener("DOMContentLoaded", () => {
+  if (isIOSDevice) {
+    document.getElementById("startBtn").style.display = "none";
+    document.getElementById("rotateNotice").style.display = "block";
+
+    window.addEventListener("orientationchange", () => {
+      if (window.orientation === 90 || window.orientation === -90) {
+        setTimeout(() => {
+          document.documentElement.requestFullscreen().catch(() => {});
+          index = 1;
+          showSlide(index);
+        }, 300);
+      }
+    });
+  }
+});
+
+// نمایش اسلاید اول در شروع
 showSlide(index);
