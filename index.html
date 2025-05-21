@@ -7,11 +7,13 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="start-screen">
-    <button class="start-button" onclick="startPresentation()">Click here to <span class="blue-text">start</span></button>
-    <div class="rotate-icon" id="rotateIcon">
-      <img src="rotate-phone-blue.svg" alt="Rotate Phone Icon" />
-    </div>
+  <div class="start-screen" id="startScreen">
+    <button class="start-button" id="startButton" onclick="startPresentation()">
+      Click here to <span class="blue-text">start</span>
+    </button>
+
+    <!-- آیکون فقط برای موبایل -->
+    <div id="rotateIcon" class="rotate-icon">📱</div>
   </div>
 
   <div class="slider-container">
