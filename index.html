@@ -1,38 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
-  <title>My Portfolio</title>
-  <link rel="stylesheet" href="styles.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+<title>Portfolio Fullscreen</title>
+<link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="start-screen">
-    <!-- موبایل و تبلت: نمایش لوگو چرخش گوشی چشمک زن -->
-    <img src="rotate-blue.png" alt="Rotate your device" class="rotate-icon" />
-    
-    <!-- ویندوز و دسکتاپ: دکمه استارت -->
-    <button class="start-button" onclick="startPresentation()">Click here to <span class="blue-text">start</span></button>
+
+<div class="start-screen">
+  <img src="rotate-blue.png" alt="Rotate your device" class="rotate-icon" />
+  <button class="start-button" onclick="startPresentation()">Click here to <span class="blue-text">start</span></button>
+</div>
+
+<div class="slider-container">
+  <div class="slides">
+    <img src="00.jpg" alt="Start Slide" />
+    <img src="01.jpg" alt="Project 1" />
+    <img src="02.jpg" alt="Project 2" />
+    <img src="03.jpg" alt="Project 3" />
   </div>
 
-  <div class="slider-container">
-    <div class="slides">
-      <img src="00.jpg" alt="Start Slide" />
-      <img src="01.jpg" alt="Project 1" />
-      <img src="02.jpg" alt="Project 2" />
-      <img src="03.jpg" alt="Project 3" />
-    </div>
-
-    <div class="controls">
-      <button class="zoom-in" onclick="zoomIn()">+</button>
-      <button class="zoom-out" onclick="zoomOut()">−</button>
-      <button class="fullscreen-toggle" onclick="toggleFullscreen()">⛶</button>
-    </div>
-
-    <button class="prev" onclick="prevSlide()">❮</button>
-    <button class="next" onclick="nextSlide()">❯</button>
+  <div class="controls">
+    <button class="zoom-in" onclick="zoomIn()">+</button>
+    <button class="zoom-out" onclick="zoomOut()">−</button>
+    <button class="fullscreen-toggle" onclick="toggleFullscreen()">⛶</button>
   </div>
 
-  <script src="script.js"></script>
+  <button class="prev" onclick="prevSlide()">❮</button>
+  <button class="next" onclick="nextSlide()">❯</button>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
