@@ -2,9 +2,12 @@ let index = 0;
 const images = document.querySelectorAll(".slides img");
 let zoomed = false;
 let hideControlsTimer = null;
+let cursorTimer = null;
 
 const allControls = document.querySelector(".controls");
 const navButtons = document.querySelectorAll(".prev, .next");
+
+let keyGuide;
 
 // نمایش اسلاید مشخص
 function showSlide(i) {
@@ -31,6 +34,7 @@ function startPresentation() {
   elem.requestFullscreen().catch(err => console.error("Fullscreen failed:", err));
   index = 1;
   showSlide(index);
+  showKeyGuide();
 }
 
 // اسلاید بعدی
@@ -61,32 +65,71 @@ function zoomOut() {
   }
 }
 
-// تغییر حالت تمام صفحه
+// Space: زوم این و آوت با یک کلید
+document.addEventListener("keydown", (e) => {
+  if (e.key === " ") {
+    e.preventDefault();
+    if (zoomed) zoomOut();
+    else zoomIn();
+    showKeyGuide();
+  } else if (e.key === "ArrowRight") {
+    nextSlide();
+    showKeyGuide();
+  } else if (e.key === "ArrowLeft") {
+    prevSlide();
+    showKeyGuide();
+  }
+});
+
+// تمام‌صفحه
 function toggleFullscreen() {
   const elem = document.documentElement;
   if (!document.fullscreenElement) {
-    elem.requestFullscreen().catch(err =>
-      console.error("Fullscreen failed:", err)
-    );
+    elem.requestFullscreen().catch(err => console.error("Fullscreen failed:", err));
+    showKeyGuide();
   } else {
     document.exitFullscreen();
   }
 }
 
-// خروج از تمام صفحه با Escape
+// خروج از فول‌اسکرین با Escape
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && document.fullscreenElement) {
     document.exitFullscreen();
   }
 });
 
-// نمایش کنترل‌ها با حرکت موس
+// نوار راهنمای کلیدها
+function showKeyGuide() {
+  if (!keyGuide) {
+    keyGuide = document.createElement("div");
+    keyGuide.className = "key-guide";
+    keyGuide.textContent = "Use ← → for slides, Space for zoom";
+    document.body.appendChild(keyGuide);
+  }
+
+  keyGuide.classList.add("show");
+
+  setTimeout(() => {
+    keyGuide.classList.remove("show");
+  }, 4000);
+}
+
+// کنترل‌های موس
 function showControlsTemporarily() {
   document.body.classList.add("visible-controls");
+  document.body.classList.remove("hide-cursor");
+
   if (hideControlsTimer) clearTimeout(hideControlsTimer);
+  if (cursorTimer) clearTimeout(cursorTimer);
+
   hideControlsTimer = setTimeout(() => {
     document.body.classList.remove("visible-controls");
-  }, 3000);
+  }, 4000);
+
+  cursorTimer = setTimeout(() => {
+    document.body.classList.add("hide-cursor");
+  }, 4000);
 }
 
 document.addEventListener("mousemove", showControlsTemporarily);
