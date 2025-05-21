@@ -5,11 +5,7 @@ let hideControlsTimer = null;
 
 const allControls = document.querySelector(".controls");
 const navButtons = document.querySelectorAll(".prev, .next");
-const rotateIcon = document.getElementById("rotateIcon");
-const isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-// نمایش اسلاید مشخص
 function showSlide(i) {
   images.forEach((img, idx) => {
     img.style.display = idx === i ? "block" : "none";
@@ -17,46 +13,34 @@ function showSlide(i) {
   });
   zoomed = false;
 
+  const startScreen = document.getElementById("startScreen");
   if (i === 0) {
     allControls.style.display = "none";
     navButtons.forEach(btn => btn.style.display = "none");
-    document.querySelector(".start-screen").style.display = "flex";
-
-    if (isMobile) {
-      document.querySelector(".start-button").style.display = "none";
-      rotateIcon.style.display = "block";
-    } else {
-      document.querySelector(".start-button").style.display = "inline-block";
-      rotateIcon.style.display = "none";
-    }
+    startScreen.style.display = "flex";
   } else {
     allControls.style.display = "flex";
     navButtons.forEach(btn => btn.style.display = "block");
-    document.querySelector(".start-screen").style.display = "none";
+    startScreen.style.display = "none";
   }
 }
 
-// شروع نمایش
 function startPresentation() {
-  const elem = document.documentElement;
-  elem.requestFullscreen?.().catch(err => console.error("Fullscreen failed:", err));
+  document.documentElement.requestFullscreen?.().catch(console.error);
   index = 1;
   showSlide(index);
 }
 
-// اسلاید بعدی
 function nextSlide() {
   index = (index + 1) % images.length;
   showSlide(index);
 }
 
-// اسلاید قبلی
 function prevSlide() {
   index = (index - 1 + images.length) % images.length;
   showSlide(index);
 }
 
-// زوم در
 function zoomIn() {
   if (!zoomed) {
     images[index].style.transform = "scale(1.5)";
@@ -64,7 +48,6 @@ function zoomIn() {
   }
 }
 
-// زوم بیرون
 function zoomOut() {
   if (zoomed) {
     images[index].style.transform = "scale(1)";
@@ -72,34 +55,46 @@ function zoomOut() {
   }
 }
 
-// تمام صفحه
 function toggleFullscreen() {
   const elem = document.documentElement;
   if (!document.fullscreenElement) {
     elem.requestFullscreen?.();
   } else {
-    document.exitFullscreen?.();
+    document.exitFullscreen();
   }
 }
 
-// کنترل‌ها با موس
-document.addEventListener("mousemove", () => {
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && document.fullscreenElement) {
+    document.exitFullscreen();
+  }
+});
+
+function showControlsTemporarily() {
   document.body.classList.add("visible-controls");
   if (hideControlsTimer) clearTimeout(hideControlsTimer);
   hideControlsTimer = setTimeout(() => {
     document.body.classList.remove("visible-controls");
   }, 3000);
-});
+}
 
-// جلوگیری از زوم لمسی
-["gesturestart", "gesturechange", "gestureend"].forEach(event =>
-  document.addEventListener(event, e => e.preventDefault())
-);
+document.addEventListener("mousemove", showControlsTemporarily);
 
-// iOS/Android: چک کردن چرخش و شروع خودکار
+// جلوگیری از زوم با دو انگشت
+document.addEventListener("gesturestart", e => e.preventDefault());
+document.addEventListener("gesturechange", e => e.preventDefault());
+document.addEventListener("gestureend", e => e.preventDefault());
+
+showSlide(index);
+
+// فعال شدن خودکار هنگام چرخاندن گوشی در موبایل
+const isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
 function checkOrientation() {
   if (isMobile && index === 0) {
     const isLandscape = window.matchMedia("(orientation: landscape)").matches;
+
     if (isLandscape) {
       startPresentation();
     }
@@ -109,7 +104,4 @@ function checkOrientation() {
 window.addEventListener("orientationchange", () => {
   setTimeout(checkOrientation, 500);
 });
-window.addEventListener("load", () => {
-  showSlide(index);
-  checkOrientation();
-});
+window.addEventListener("load", checkOrientation);
