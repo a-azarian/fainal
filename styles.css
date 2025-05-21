@@ -82,62 +82,16 @@ body {
   z-index: 2;
 }
 
-.start-screen {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: black;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 10;
-}
-
-.start-button {
-  background: rgba(255, 255, 255, 0.15);
-  color: white;
-  padding: 16px 32px;
-  border: none;
-  border-radius: 10px;
-  font-size: 22px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.start-button:hover {
-  background: rgba(255, 255, 255, 0.35);
-}
-
-.blue-text {
-  color: #00aaff;
-}
-
-body:not(.visible-controls) .controls,
-body:not(.visible-controls) .prev,
-body:not(.visible-controls) .next {
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-
-body.visible-controls .controls,
-body.visible-controls .prev,
-body.visible-controls .next {
-  opacity: 1;
-}
-
-/* Hint when iOS device in portrait mode */
 .rotate-hint {
   position: absolute;
   top: 0;
   left: 0;
   background: black;
-  color: white;
+  color: #00aaff;
   width: 100vw;
   height: 100vh;
   z-index: 20;
-  display: none;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
