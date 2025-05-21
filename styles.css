@@ -27,7 +27,7 @@ body {
 
 .slides img {
   width: auto;
-  height: 85vh;
+  height: 85vh; /* بزرگتر ولی نه تمام‌قد */
   display: none;
   object-fit: contain;
   transition: transform 0.3s ease-in-out;
@@ -108,7 +108,7 @@ body {
 }
 
 .blue-text {
-  color: #00aaff;
+  color: #00aaff; /* آبی روشن - قابل تغییر */
 }
 
 body:not(.visible-controls) .controls,
@@ -122,24 +122,4 @@ body.visible-controls .controls,
 body.visible-controls .prev,
 body.visible-controls .next {
   opacity: 1;
-}
-
-/* Keyboard help (bottom center) */
-.keyboard-help {
-  position: fixed;
-  bottom: 60px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(32, 32, 32, 0.85);
-  color: #fff;
-  font-size: 15px;
-  padding: 14px 28px; /* بزرگ‌تر شد */
-  border-radius: 0; /* گوشه‌ها صاف شد */
-  font-family: Segoe UI, sans-serif;
-  z-index: 99;
-  display: none;
-}
-
-body.hide-cursor {
-  cursor: none;
 }
