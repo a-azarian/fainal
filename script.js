@@ -27,14 +27,10 @@ function showSlide(i) {
 
 // شروع نمایش
 function startPresentation() {
-  const isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  const elem = document.documentElement;
+  elem.requestFullscreen?.().catch(err => console.error("Fullscreen failed:", err));
   index = 1;
   showSlide(index);
-  if (!isiOS) {
-    document.documentElement.requestFullscreen().catch(err => {
-      console.error("Fullscreen failed:", err);
-    });
-  }
 }
 
 // اسلاید بعدی
@@ -69,9 +65,7 @@ function zoomOut() {
 function toggleFullscreen() {
   const elem = document.documentElement;
   if (!document.fullscreenElement) {
-    elem.requestFullscreen().catch(err =>
-      console.error("Fullscreen failed:", err)
-    );
+    elem.requestFullscreen?.();
   } else {
     document.exitFullscreen();
   }
@@ -90,15 +84,39 @@ function showControlsTemporarily() {
   if (hideControlsTimer) clearTimeout(hideControlsTimer);
   hideControlsTimer = setTimeout(() => {
     document.body.classList.remove("visible-controls");
-  }, 4000);
+  }, 3000);
 }
 
 document.addEventListener("mousemove", showControlsTemporarily);
 
-// جلوگیری از pinch zoom
-document.addEventListener('gesturestart', e => e.preventDefault());
-document.addEventListener('gesturechange', e => e.preventDefault());
-document.addEventListener('gestureend', e => e.preventDefault());
+// جلوگیری از زوم با دو انگشت (موبایل)
+document.addEventListener("gesturestart", (e) => e.preventDefault());
+document.addEventListener("gesturechange", (e) => e.preventDefault());
+document.addEventListener("gestureend", (e) => e.preventDefault());
 
 // نمایش اسلاید اول در شروع
 showSlide(index);
+
+// پشتیبانی از iOS و جهت‌گیری
+const isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+const rotateHint = document.getElementById("rotateHint");
+
+function checkOrientation() {
+  if (isiOS && index === 0) {
+    const isLandscape = window.matchMedia("(orientation: landscape)").matches;
+
+    if (!isLandscape) {
+      rotateHint.style.display = "flex";
+    } else {
+      rotateHint.style.display = "none";
+      index = 1;
+      showSlide(index);
+      document.documentElement.requestFullscreen?.();
+    }
+  }
+}
+
+window.addEventListener("orientationchange", () => {
+  setTimeout(checkOrientation, 500);
+});
+window.addEventListener("load", checkOrientation);
