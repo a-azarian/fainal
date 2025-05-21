@@ -1,19 +1,32 @@
-body {
-  text-align: center;
-  background: #000;
-  overflow: hidden;
+/* ریست اولیه */
+* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: #000;
+  text-align: center;
+  -webkit-touch-callout: none; /* جلوگیری از منو روی آیفون */
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+  overscroll-behavior: none;
 }
 
 .slider-container {
   width: 100vw;
   height: 100vh;
   display: flex;
-  align-items: center;
   justify-content: center;
-  flex-direction: column;
-  position: relative;
+  align-items: center;
   overflow: hidden;
+  position: relative;
 }
 
 .slides {
@@ -26,12 +39,12 @@ body {
 }
 
 .slides img {
-  width: auto;
-  height: 85vh;
-  display: none;
+  max-width: 100vw;
+  max-height: 100vh;
   object-fit: contain;
+  display: none;
   transition: transform 0.3s ease-in-out;
-  z-index: 1;
+  margin: auto;
 }
 
 .controls {
@@ -41,7 +54,7 @@ body {
   transform: translateX(-50%);
   display: flex;
   gap: 15px;
-  z-index: 2;
+  z-index: 10;
 }
 
 .controls button,
@@ -55,6 +68,7 @@ body {
   font-size: 20px;
   border-radius: 8px;
   transition: background 0.3s ease, transform 0.1s ease;
+  user-select: none;
 }
 
 .controls button:hover,
@@ -68,7 +82,7 @@ body {
   left: 3%;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 2;
+  z-index: 10;
 }
 
 .next {
@@ -76,9 +90,10 @@ body {
   right: 3%;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 2;
+  z-index: 10;
 }
 
+/* صفحه شروع */
 .start-screen {
   position: absolute;
   top: 0;
@@ -86,13 +101,14 @@ body {
   width: 100vw;
   height: 100vh;
   background: black;
-  display: none;
+  display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 20;
   flex-direction: column;
-  z-index: 10;
 }
 
+/* دکمه شروع در دسکتاپ */
 .start-button {
   background: rgba(255, 255, 255, 0.15);
   color: white;
@@ -112,6 +128,38 @@ body {
   color: #00aaff;
 }
 
+/* آیکون چرخش گوشی (Rotate Icon) */
+.rotate-icon {
+  width: 120px;
+  height: 120px;
+  filter: brightness(0) saturate(100%) invert(27%) sepia(90%) saturate(2246%) hue-rotate(189deg) brightness(89%) contrast(87%);
+  animation: blinkRotate 2s infinite ease-in-out;
+}
+
+/* انیمیشن چشمک زدن */
+@keyframes blinkRotate {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* مخفی کردن دکمه شروع در موبایل و تبلت */
+@media screen and (max-width: 1024px) {
+  .start-button {
+    display: none;
+  }
+  .rotate-icon {
+    display: block;
+  }
+}
+
+/* مخفی کردن آیکون چرخش در دسکتاپ */
+@media screen and (min-width: 1025px) {
+  .rotate-icon {
+    display: none;
+  }
+}
+
+/* مخفی کردن کنترل‌ها در حالت شروع */
 body:not(.visible-controls) .controls,
 body:not(.visible-controls) .prev,
 body:not(.visible-controls) .next {
@@ -125,34 +173,12 @@ body.visible-controls .next {
   opacity: 1;
 }
 
-/* 🔵 آیکون چرخش گوشی با چشمک آهسته */
-.rotate-icon {
-  display: none;
-  width: 80px;
-  height: auto;
-  animation: blink 2s infinite;
-  filter: drop-shadow(0 0 4px #00aaff);
-}
-
-/* چشمک زدن */
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.2; }
-}
-
-/* نمایش آیکون در موبایل و پنهان کردن دکمه */
-@media (max-width: 768px) {
-  .start-button {
-    display: none;
+/* رفع مشکل نوار مرورگر در حالت افقی موبایل (سافاری و دیگر مرورگرها) */
+@supports (-webkit-touch-callout: none) {
+  body, html {
+    height: -webkit-fill-available;
   }
-
-  .rotate-icon {
-    display: block;
+  .slider-container {
+    height: -webkit-fill-available;
   }
-}
-
-/* جلوگیری از pinch zoom در موبایل */
-html, body {
-  touch-action: manipulation;
-  overscroll-behavior: none;
 }
