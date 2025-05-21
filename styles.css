@@ -128,20 +128,26 @@ body.visible-controls .next {
   opacity: 1;
 }
 
-/* آیکون چرخاندن گوشی (موبایل/تبلت) */
+/* آیکون چشمک‌زن برای موبایل */
 .rotate-icon {
+  font-size: 80px;
+  color: #00aaff;
+  animation: blink 2s infinite;
   display: none;
-  animation: blink-slow 2s infinite;
 }
 
-.rotate-icon img {
-  width: 64px;
-  height: auto;
-  filter: drop-shadow(0 0 4px #00aaff);
-  user-select: none;
-}
-
-@keyframes blink-slow {
+@keyframes blink {
   0%, 100% { opacity: 1; }
-  50% { opacity: 0.3; }
+  50% { opacity: 0.2; }
+}
+
+/* نمایش آیکون در حالت موبایل */
+@media (max-width: 768px) {
+  .start-button {
+    display: none;
+  }
+
+  .rotate-icon {
+    display: block;
+  }
 }
