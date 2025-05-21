@@ -5,6 +5,7 @@ let hideControlsTimer = null;
 
 const allControls = document.querySelector(".controls");
 const navButtons = document.querySelectorAll(".prev, .next");
+const rotateHint = document.getElementById("rotateHint");
 
 // نمایش اسلاید مشخص
 function showSlide(i) {
@@ -13,22 +14,12 @@ function showSlide(i) {
     img.style.transform = "scale(1)";
   });
   zoomed = false;
-
-  if (i === 0) {
-    allControls.style.display = "none";
-    navButtons.forEach(btn => btn.style.display = "none");
-    document.querySelector(".start-screen").style.display = "flex";
-  } else {
-    allControls.style.display = "flex";
-    navButtons.forEach(btn => btn.style.display = "block");
-    document.querySelector(".start-screen").style.display = "none";
-  }
 }
 
-// شروع نمایش
+// شروع خودکار هنگام چرخش افقی
 function startPresentation() {
   const elem = document.documentElement;
-  elem.requestFullscreen?.().catch(err => console.error("Fullscreen failed:", err));
+  elem.requestFullscreen?.();
   index = 1;
   showSlide(index);
 }
@@ -45,7 +36,7 @@ function prevSlide() {
   showSlide(index);
 }
 
-// زوم در (1.5x)
+// زوم در
 function zoomIn() {
   if (!zoomed) {
     images[index].style.transform = "scale(1.5)";
@@ -53,7 +44,7 @@ function zoomIn() {
   }
 }
 
-// زوم بیرون (1x)
+// زوم بیرون
 function zoomOut() {
   if (zoomed) {
     images[index].style.transform = "scale(1)";
@@ -61,7 +52,7 @@ function zoomOut() {
   }
 }
 
-// تغییر حالت تمام صفحه
+// حالت تمام صفحه
 function toggleFullscreen() {
   const elem = document.documentElement;
   if (!document.fullscreenElement) {
@@ -71,14 +62,14 @@ function toggleFullscreen() {
   }
 }
 
-// خروج از تمام صفحه با Escape
+// خروج با ESC
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && document.fullscreenElement) {
     document.exitFullscreen();
   }
 });
 
-// نمایش کنترل‌ها با حرکت موس
+// کنترل‌ها
 function showControlsTemporarily() {
   document.body.classList.add("visible-controls");
   if (hideControlsTimer) clearTimeout(hideControlsTimer);
@@ -86,37 +77,30 @@ function showControlsTemporarily() {
     document.body.classList.remove("visible-controls");
   }, 3000);
 }
-
 document.addEventListener("mousemove", showControlsTemporarily);
 
-// جلوگیری از زوم با دو انگشت (موبایل)
+// غیرفعال کردن زوم با دو انگشت
 document.addEventListener("gesturestart", (e) => e.preventDefault());
 document.addEventListener("gesturechange", (e) => e.preventDefault());
 document.addEventListener("gestureend", (e) => e.preventDefault());
 
-// نمایش اسلاید اول در شروع
-showSlide(index);
-
-// پشتیبانی از iOS و جهت‌گیری
-const isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-const rotateHint = document.getElementById("rotateHint");
-
+// چک‌کردن جهت دستگاه
 function checkOrientation() {
-  if (isiOS && index === 0) {
-    const isLandscape = window.matchMedia("(orientation: landscape)").matches;
+  const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+  const isLandscape = window.matchMedia("(orientation: landscape)").matches;
 
+  if (isMobile && index === 0) {
     if (!isLandscape) {
       rotateHint.style.display = "flex";
     } else {
       rotateHint.style.display = "none";
-      index = 1;
-      showSlide(index);
-      document.documentElement.requestFullscreen?.();
+      startPresentation();
     }
   }
 }
 
-window.addEventListener("orientationchange", () => {
-  setTimeout(checkOrientation, 500);
-});
+window.addEventListener("orientationchange", () => setTimeout(checkOrientation, 500));
 window.addEventListener("load", checkOrientation);
+
+// شروع از اسلاید اول
+showSlide(index);
