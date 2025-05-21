@@ -112,7 +112,6 @@ body {
   color: #00aaff;
 }
 
-/* کنترل‌های ناوبری هنگام عدم فعالیت موس */
 body:not(.visible-controls) .controls,
 body:not(.visible-controls) .prev,
 body:not(.visible-controls) .next {
@@ -124,32 +123,4 @@ body.visible-controls .controls,
 body.visible-controls .prev,
 body.visible-controls .next {
   opacity: 1;
-}
-
-/* نوار راهنمای کلیدها (مانند Esc در ویندوز) */
-.key-guide {
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(50, 50, 50, 0.85);
-  color: #fff;
-  font-size: 15px;
-  padding: 10px 25px;
-  z-index: 999;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  font-family: "Segoe UI", sans-serif;
-  border-radius: 0; /* بدون کرو */
-  pointer-events: none;
-}
-
-/* نمایش نوار راهنمای کلیدها */
-.key-guide.show {
-  opacity: 1;
-}
-
-/* موس مخفی بعد از چند ثانیه بی‌حرکتی */
-body.hide-cursor {
-  cursor: none;
 }
