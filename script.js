@@ -5,7 +5,9 @@ let hideControlsTimer = null;
 
 const allControls = document.querySelector(".controls");
 const navButtons = document.querySelectorAll(".prev, .next");
-const rotateHint = document.getElementById("rotateHint");
+const rotateIcon = document.getElementById("rotateIcon");
+const isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
 // نمایش اسلاید مشخص
 function showSlide(i) {
@@ -14,12 +16,30 @@ function showSlide(i) {
     img.style.transform = "scale(1)";
   });
   zoomed = false;
+
+  if (i === 0) {
+    allControls.style.display = "none";
+    navButtons.forEach(btn => btn.style.display = "none");
+    document.querySelector(".start-screen").style.display = "flex";
+
+    if (isMobile) {
+      document.querySelector(".start-button").style.display = "none";
+      rotateIcon.style.display = "block";
+    } else {
+      document.querySelector(".start-button").style.display = "inline-block";
+      rotateIcon.style.display = "none";
+    }
+  } else {
+    allControls.style.display = "flex";
+    navButtons.forEach(btn => btn.style.display = "block");
+    document.querySelector(".start-screen").style.display = "none";
+  }
 }
 
-// شروع خودکار هنگام چرخش افقی
+// شروع نمایش
 function startPresentation() {
   const elem = document.documentElement;
-  elem.requestFullscreen?.();
+  elem.requestFullscreen?.().catch(err => console.error("Fullscreen failed:", err));
   index = 1;
   showSlide(index);
 }
@@ -52,55 +72,44 @@ function zoomOut() {
   }
 }
 
-// حالت تمام صفحه
+// تمام صفحه
 function toggleFullscreen() {
   const elem = document.documentElement;
   if (!document.fullscreenElement) {
     elem.requestFullscreen?.();
   } else {
-    document.exitFullscreen();
+    document.exitFullscreen?.();
   }
 }
 
-// خروج با ESC
-document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" && document.fullscreenElement) {
-    document.exitFullscreen();
-  }
-});
-
-// کنترل‌ها
-function showControlsTemporarily() {
+// کنترل‌ها با موس
+document.addEventListener("mousemove", () => {
   document.body.classList.add("visible-controls");
   if (hideControlsTimer) clearTimeout(hideControlsTimer);
   hideControlsTimer = setTimeout(() => {
     document.body.classList.remove("visible-controls");
   }, 3000);
-}
-document.addEventListener("mousemove", showControlsTemporarily);
+});
 
-// غیرفعال کردن زوم با دو انگشت
-document.addEventListener("gesturestart", (e) => e.preventDefault());
-document.addEventListener("gesturechange", (e) => e.preventDefault());
-document.addEventListener("gestureend", (e) => e.preventDefault());
+// جلوگیری از زوم لمسی
+["gesturestart", "gesturechange", "gestureend"].forEach(event =>
+  document.addEventListener(event, e => e.preventDefault())
+);
 
-// چک‌کردن جهت دستگاه
+// iOS/Android: چک کردن چرخش و شروع خودکار
 function checkOrientation() {
-  const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
-  const isLandscape = window.matchMedia("(orientation: landscape)").matches;
-
   if (isMobile && index === 0) {
-    if (!isLandscape) {
-      rotateHint.style.display = "flex";
-    } else {
-      rotateHint.style.display = "none";
+    const isLandscape = window.matchMedia("(orientation: landscape)").matches;
+    if (isLandscape) {
       startPresentation();
     }
   }
 }
 
-window.addEventListener("orientationchange", () => setTimeout(checkOrientation, 500));
-window.addEventListener("load", checkOrientation);
-
-// شروع از اسلاید اول
-showSlide(index);
+window.addEventListener("orientationchange", () => {
+  setTimeout(checkOrientation, 500);
+});
+window.addEventListener("load", () => {
+  showSlide(index);
+  checkOrientation();
+});
