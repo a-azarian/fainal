@@ -3,7 +3,6 @@ body {
   background: #000;
   overflow: hidden;
   margin: 0;
-  cursor: default;
 }
 
 .slider-container {
@@ -87,10 +86,11 @@ body {
   width: 100vw;
   height: 100vh;
   background: black;
-  display: none;
+  display: flex;
   align-items: center;
   justify-content: center;
   z-index: 10;
+  flex-direction: column;
 }
 
 .start-button {
@@ -110,6 +110,20 @@ body {
 
 .blue-text {
   color: #00aaff;
+}
+
+/* چشمک زدن پیام چرخاندن گوشی */
+.rotate-message {
+  display: none;
+  color: white;
+  font-size: 24px;
+  animation: blink 1s infinite;
+  margin-top: 20px;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.2; }
 }
 
 body:not(.visible-controls) .controls,
