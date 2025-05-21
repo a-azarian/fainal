@@ -3,6 +3,9 @@ body {
   background: #000;
   overflow: hidden;
   margin: 0;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .slider-container {
@@ -27,12 +30,12 @@ body {
 
 .slides img {
   width: auto;
-  max-width: 100%;
-  max-height: 85vh;
+  height: 85vh;
   display: none;
   object-fit: contain;
   transition: transform 0.3s ease-in-out;
   z-index: 1;
+  pointer-events: none;
 }
 
 .controls {
@@ -43,7 +46,6 @@ body {
   display: flex;
   gap: 15px;
   z-index: 2;
-  flex-wrap: wrap;
 }
 
 .controls button,
@@ -54,7 +56,7 @@ body {
   border: none;
   cursor: pointer;
   padding: 10px 14px;
-  font-size: 18px;
+  font-size: 20px;
   border-radius: 8px;
   transition: background 0.3s ease, transform 0.1s ease;
 }
@@ -65,20 +67,20 @@ body {
   background: rgba(0, 0, 0, 0.8);
 }
 
-.prev,
-.next {
+.prev {
   position: absolute;
+  left: 3%;
   top: 50%;
   transform: translateY(-50%);
   z-index: 2;
 }
 
-.prev {
-  left: 3%;
-}
-
 .next {
+  position: absolute;
   right: 3%;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
 }
 
 .start-screen {
@@ -88,10 +90,9 @@ body {
   width: 100vw;
   height: 100vh;
   background: black;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
   z-index: 10;
 }
 
@@ -114,19 +115,6 @@ body {
   color: #00aaff;
 }
 
-.rotate-message {
-  display: none;
-  color: #fff;
-  font-size: 20px;
-  margin-top: 20px;
-  animation: blink 1s infinite;
-}
-
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.2; }
-}
-
 body:not(.visible-controls) .controls,
 body:not(.visible-controls) .prev,
 body:not(.visible-controls) .next {
@@ -138,21 +126,4 @@ body.visible-controls .controls,
 body.visible-controls .prev,
 body.visible-controls .next {
   opacity: 1;
-}
-
-/* موبایل: کنترل سایز فونت */
-@media (max-width: 600px) {
-  .start-button {
-    font-size: 18px;
-    padding: 12px 24px;
-  }
-
-  .controls button {
-    font-size: 16px;
-    padding: 8px 10px;
-  }
-
-  .rotate-message {
-    font-size: 18px;
-  }
 }
